@@ -12,4 +12,19 @@ class MainViewController: BaseViewController {
         super.viewDidLoad()
         mainView.backgroundColor = .white
     }
+    
+    override func configure() {
+        mainView.choiceButton.addTarget(self, action: #selector(clickedChoiceButton), for: .touchUpInside)
+    }
+    
+    @objc func clickedChoiceButton() {
+        
+        let vc = SecondViewController()
+        
+        //값 전달 코드 추가 필요
+        
+        let nvc = UINavigationController(rootViewController: vc)
+        
+        self.present(nvc, animated: true)
+    }
 }

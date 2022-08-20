@@ -41,6 +41,7 @@ class MainView: BaseView {
         return view
     }()
     
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
     }
@@ -50,11 +51,11 @@ class MainView: BaseView {
     }
     
     override func configure() {
-        [photoImageView, titleTextField, dataTextField, mainTextView] .forEach {
+        [photoImageView, titleTextField, dataTextField, mainTextView, choiceButton] .forEach {
             self.addSubview($0)
         }
         
-        photoImageView.addSubview(choiceButton)
+//        photoImageView.addSubview(choiceButton) // 이렇게 추가하면 버튼 클릭 안 됌
         
     }
     
