@@ -16,8 +16,8 @@ class SecondView: BaseView {
         let itemCount: CGFloat = 3
         let width = (UIScreen.main.bounds.width - spacing * (itemCount + 1)) / itemCount
         layout.itemSize = CGSize(width: width, height: width)
-        layout.sectionInset = UIEdgeInsets(top: spacing, left: spacing, bottom: spacing, right: spacing)
-        layout.minimumLineSpacing = spacing
+        layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        layout.minimumLineSpacing = spacing * 2
         layout.minimumInteritemSpacing = 0
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         

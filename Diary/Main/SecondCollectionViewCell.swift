@@ -6,7 +6,7 @@ class SecondCollectionViewCell: BaseViewCell {
     
     let searchedImageView: UIImageView = {
         let view = UIImageView()
-        view.backgroundColor = .brown
+        view.backgroundColor = .systemGray6
         return view
     }()
     
@@ -30,4 +30,5 @@ class SecondCollectionViewCell: BaseViewCell {
             $0.edges.equalToSuperview()
         }
     }
+    
 }
