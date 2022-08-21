@@ -25,6 +25,8 @@ class MainViewController: BaseViewController {
         
         let nvc = UINavigationController(rootViewController: vc)
         
+        nvc.modalPresentationStyle = .fullScreen
+        
         self.present(nvc, animated: true)
     }
 }

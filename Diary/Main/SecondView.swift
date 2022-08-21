@@ -10,18 +10,17 @@ class SecondView: BaseView {
         return view
     }()
     
-    let collection: UICollectionView = {
+    let secondCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
-        let spacing: CGFloat = 0
+        let spacing: CGFloat = 1
         let itemCount: CGFloat = 3
         let width = (UIScreen.main.bounds.width - spacing * (itemCount + 1)) / itemCount
         layout.itemSize = CGSize(width: width, height: width)
         layout.sectionInset = UIEdgeInsets(top: spacing, left: spacing, bottom: spacing, right: spacing)
-        layout.minimumLineSpacing = 1
-        layout.minimumInteritemSpacing = 1
-        
+        layout.minimumLineSpacing = spacing
+        layout.minimumInteritemSpacing = 0
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.backgroundColor = .red
+        
         return collectionView
     }()
     
@@ -34,7 +33,7 @@ class SecondView: BaseView {
     }
     
     override func configure() {
-        [photoSearchBar, collection].forEach {
+        [photoSearchBar, secondCollectionView].forEach {
             self.addSubview($0)
         }
     }
@@ -47,11 +46,11 @@ class SecondView: BaseView {
             $0.height.equalTo(50)
         }
         
-        collection.snp.makeConstraints {
+        secondCollectionView.snp.makeConstraints {
             $0.top.equalTo(photoSearchBar.snp.bottom)
             $0.leading.equalTo(self.safeAreaLayoutGuide.snp.leading)
             $0.trailing.equalTo(self.safeAreaLayoutGuide.snp.trailing)
-            $0.bottom.equalTo(self.safeAreaLayoutGuide.snp.bottom)
+            $0.bottom.equalTo(self.snp.bottom)
         }
     }
 }

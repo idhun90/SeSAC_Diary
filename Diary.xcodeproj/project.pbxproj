@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		142161F728B1E2A000BB9D50 /* SecondCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 142161F628B1E2A000BB9D50 /* SecondCollectionViewCell.swift */; };
 		14A6511D28B1319B0098CAC4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14A6511C28B1319B0098CAC4 /* AppDelegate.swift */; };
 		14A6511F28B1319B0098CAC4 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14A6511E28B1319B0098CAC4 /* SceneDelegate.swift */; };
 		14A6512128B1319B0098CAC4 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14A6512028B1319B0098CAC4 /* ViewController.swift */; };
@@ -25,6 +26,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		142161F628B1E2A000BB9D50 /* SecondCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondCollectionViewCell.swift; sourceTree = "<group>"; };
 		14A6511928B1319B0098CAC4 /* Diary.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Diary.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		14A6511C28B1319B0098CAC4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		14A6511E28B1319B0098CAC4 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -104,6 +106,7 @@
 				14A6513828B1357A0098CAC4 /* MainView.swift */,
 				14A6514528B1448E0098CAC4 /* SecondViewController.swift */,
 				14A6514728B144CE0098CAC4 /* SecondView.swift */,
+				142161F628B1E2A000BB9D50 /* SecondCollectionViewCell.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -213,6 +216,7 @@
 				14A6512128B1319B0098CAC4 /* ViewController.swift in Sources */,
 				14A6513928B1357A0098CAC4 /* MainView.swift in Sources */,
 				14A6514328B141F90098CAC4 /* Reuseble.swift in Sources */,
+				142161F728B1E2A000BB9D50 /* SecondCollectionViewCell.swift in Sources */,
 				14A6513328B134F30098CAC4 /* BaseViewController.swift in Sources */,
 				14A6511D28B1319B0098CAC4 /* AppDelegate.swift in Sources */,
 				14A6514828B144CE0098CAC4 /* SecondView.swift in Sources */,

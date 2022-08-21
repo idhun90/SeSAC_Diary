@@ -8,15 +8,14 @@ class BaseViewController: UIViewController {
     }
     
     func configure() { }
+    func setConstaints() { }
 }
 
 extension UIViewController {
     
-    func transitionViewController<T: UIViewController>(storyboard: String, viewController vc: T) {
+    func transitionViewController<T: UIViewController>(viewController vc: T) {
         
-        let sb = UIStoryboard(name: storyboard, bundle: nil)
-        guard let controller = sb.instantiateViewController(withIdentifier: T.reusebleIdentifier) as? T else { return }
-        
+        let controller = vc
         self.present(controller, animated: true)
     }
 }
