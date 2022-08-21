@@ -1,18 +1,33 @@
-
 import UIKit
 
-class SecondCollectionViewCell: UICollectionViewCell {
+import SnapKit
+
+class SecondCollectionViewCell: BaseViewCell {
+    
+    let searchedImageView: UIImageView = {
+        let view = UIImageView()
+        view.backgroundColor = .brown
+        return view
+    }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        configure()
+        
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configure() {
-        self.backgroundColor = .systemBlue
+    override func configure() {
+        [searchedImageView].forEach {
+            self.addSubview($0)
+        }
+    }
+    
+    override func setConstaints() {
+        searchedImageView.snp.makeConstraints {
+            $0.edges.equalToSuperview()
+        }
     }
 }
