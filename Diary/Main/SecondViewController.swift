@@ -7,8 +7,11 @@ class SecondViewController: BaseViewController {
     private var mainView = SecondView()
     
     private var page = 1
-    private let totalPage = 1000
+    private let totalPage = 334 // 한페이지에 30개 불러올 때 기준
     private var unsplashimage: [UnsplashData] = []
+    
+    var selectedImageUrl: String?
+    var dataHandler: (() -> ())?
     
     override func loadView() {
         self.view = mainView
@@ -16,31 +19,31 @@ class SecondViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        mainView.backgroundColor = .white
+        mainView.backgroundColor = .systemBackground
         mainView.photoSearchBar.delegate = self
         
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "취소", style: .plain, target: self, action: #selector(cancelButtonClicked))
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "선택", style: .done, target: self, action: #selector(selectButtonClicked))
+        setupNavigationButton()
+        setupCollectionView()
         
-        collectionViewDelegate()
-        
-        APIManager.shared.fetchImage(query: "Cat", page: page) {
-            self.unsplashimage = $0
-            print(self.unsplashimage)
-        }
     }
-    
+    // objc 함수
     @objc func selectButtonClicked() {
-        // 값 전달
+        dataHandler?()
         self.dismiss(animated: true)
     }
     
     @objc func cancelButtonClicked() {
+        selectedImageUrl = nil
         self.dismiss(animated: true)
     }
     
+    func setupNavigationButton() {
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "취소", style: .plain, target: self, action: #selector(cancelButtonClicked))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "선택", style: .done, target: self, action: #selector(selectButtonClicked))
+    }
+    
     // 이곳에 하는 게 맞을까?
-    func collectionViewDelegate() {
+    func setupCollectionView() {
         mainView.secondCollectionView.delegate = self
         mainView.secondCollectionView.dataSource = self
         mainView.secondCollectionView.prefetchDataSource = self
@@ -52,7 +55,6 @@ class SecondViewController: BaseViewController {
             self.unsplashimage = $0
             self.mainView.secondCollectionView.reloadData()
         }
-        
     }
 }
 
@@ -60,10 +62,10 @@ class SecondViewController: BaseViewController {
 extension SecondViewController: UISearchBarDelegate {
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        // 네트워크 처리 필요
         guard let text = searchBar.text else { return }
         unsplashimage.removeAll()
         page = 1
+        mainView.secondCollectionView.reloadData()
         fetchImage(query: text)
         
         print("검색 버튼 클릭 함")
@@ -74,33 +76,31 @@ extension SecondViewController: UISearchBarDelegate {
 extension SecondViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDataSourcePrefetching {
     
     func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
-        
-        for indexPath in indexPaths {
-            if unsplashimage.count == indexPath.item && page < totalPage {
-                page += 1
-                
-                guard let text = mainView.photoSearchBar.text else { return }
-                fetchImage(query: text)
-            }
-        }
-        
+        print(#function)
+        print("======\(indexPaths)")
+        //        for indexPath in indexPaths {
+        //            if unsplashimage.count - 1 == indexPath.item /*&& page < totalPage*/ {
+        //                page += 1
+        //                print(page)
+        //                guard let text = mainView.photoSearchBar.text else { return }
+        //                fetchImage(query: text)
+        //            }
+        //        }
     }
-    
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return unsplashimage.count
     }
     
-    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SecondCollectionViewCell.reusebleIdentifier, for: indexPath) as? SecondCollectionViewCell else { return UICollectionViewCell() }
-        
-        let url = URL(string: unsplashimage[indexPath.item].regularImageUrl)
-        cell.searchedImageView.kf.setImage(with: url)
-        
-        
+        cell.roadData(data: unsplashimage[indexPath.item])
         return cell
     }
     
-    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print("\(indexPath.item) 선택됨")
+        
+        selectedImageUrl = unsplashimage[indexPath.item].regularImageUrl
+    }
 }

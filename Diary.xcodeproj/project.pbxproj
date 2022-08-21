@@ -131,9 +131,9 @@
 			children = (
 				14A6513428B135260098CAC4 /* MainViewController.swift */,
 				14A6514528B1448E0098CAC4 /* SecondViewController.swift */,
+				142161F628B1E2A000BB9D50 /* SecondCollectionViewCell.swift */,
 				14A6513828B1357A0098CAC4 /* MainView.swift */,
 				14A6514728B144CE0098CAC4 /* SecondView.swift */,
-				142161F628B1E2A000BB9D50 /* SecondCollectionViewCell.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";

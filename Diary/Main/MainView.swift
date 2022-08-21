@@ -1,6 +1,7 @@
 import UIKit
 
 import SnapKit
+import Kingfisher
 
 class MainView: BaseView {
     
@@ -8,6 +9,7 @@ class MainView: BaseView {
         let view = UIImageView()
         view.backgroundColor = .systemGray6
         view.layer.cornerRadius = 4
+        view.layer.masksToBounds = true
         view.contentMode = .scaleAspectFill
         return view
     }()

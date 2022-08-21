@@ -1,5 +1,7 @@
 import UIKit
 
+import Kingfisher
+
 class MainViewController: BaseViewController {
     
     var mainView = MainView()
@@ -10,7 +12,7 @@ class MainViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        mainView.backgroundColor = .white
+        mainView.backgroundColor = .systemBackground
     }
     
     override func configure() {
@@ -20,11 +22,12 @@ class MainViewController: BaseViewController {
     @objc func clickedChoiceButton() {
         
         let vc = SecondViewController()
-        
-        //값 전달 코드 추가 필요
+        vc.dataHandler = {
+            let url = URL(string: vc.selectedImageUrl ?? "xmark")
+            self.mainView.photoImageView.kf.setImage(with: url)
+        }
         
         let nvc = UINavigationController(rootViewController: vc)
-        
         nvc.modalPresentationStyle = .fullScreen
         
         self.present(nvc, animated: true)
