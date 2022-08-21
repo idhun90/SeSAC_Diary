@@ -22,8 +22,6 @@ class SecondCollectionViewCell: BaseViewCell {
         
         let view = UIButton(configuration: configuration, primaryAction: nil)
         view.isHidden = true
-        // 여기에 추가를 안 해주니 첫 로딩 때 버튼이 표기됨, 재사용 prepare에 nil 값을 줘도 왜 표기되지?
-        // isSelected가 기본값이 false로 출력되는데 didset 구문은 초기화 시점에서 한 번 호출이 되면 false 값이라 버튼이 안 보이는 게 맞는 것 같은데 음
         
         return view
     }()
@@ -59,7 +57,7 @@ class SecondCollectionViewCell: BaseViewCell {
     override var isSelected: Bool {
         didSet {
             
-            searchedImageView.alpha = isSelected ? 0.5 : 1.0
+            searchedImageView.alpha = isSelected ? 0.3 : 1.0
             selectedButton.isHidden = isSelected ? false : true
         }
     }
