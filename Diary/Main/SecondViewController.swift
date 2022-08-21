@@ -102,5 +102,6 @@ extension SecondViewController: UICollectionViewDelegate, UICollectionViewDataSo
         print("\(indexPath.item) 선택됨")
         
         selectedImageUrl = unsplashimage[indexPath.item].regularImageUrl
+        
     }
 }

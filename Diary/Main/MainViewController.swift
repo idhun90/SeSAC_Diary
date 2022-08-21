@@ -23,9 +23,15 @@ class MainViewController: BaseViewController {
         
         let vc = SecondViewController()
         vc.dataHandler = {
-            let url = URL(string: vc.selectedImageUrl ?? "xmark")
-            self.mainView.photoImageView.kf.setImage(with: url)
+ 
+            if let selectedImageUrl = vc.selectedImageUrl {
+                let url = URL(string: selectedImageUrl)
+                self.mainView.photoImageView.kf.setImage(with: url)
+            } else {
+                self.mainView.photoImageView.image = UIImage(systemName: "xmark")
+            }
         }
+        
         
         let nvc = UINavigationController(rootViewController: vc)
         nvc.modalPresentationStyle = .fullScreen
