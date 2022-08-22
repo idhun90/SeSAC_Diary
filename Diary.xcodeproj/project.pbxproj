@@ -31,6 +31,12 @@
 		14A6514328B141F90098CAC4 /* Reuseble.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14A6514228B141F90098CAC4 /* Reuseble.swift */; };
 		14A6514628B1448E0098CAC4 /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14A6514528B1448E0098CAC4 /* SecondViewController.swift */; };
 		14A6514828B144CE0098CAC4 /* SecondView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14A6514728B144CE0098CAC4 /* SecondView.swift */; };
+		14CADA1428B3D68E005D5912 /* BaseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14CADA1328B3D68E005D5912 /* BaseTableViewCell.swift */; };
+		14CADA1628B3D850005D5912 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14CADA1528B3D850005D5912 /* HomeViewController.swift */; };
+		14CADA1928B3D882005D5912 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 14CADA1828B3D882005D5912 /* Realm */; };
+		14CADA1B28B3D882005D5912 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 14CADA1A28B3D882005D5912 /* RealmSwift */; };
+		14CADA1D28B3D995005D5912 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14CADA1C28B3D995005D5912 /* HomeView.swift */; };
+		14CADA1F28B3DC11005D5912 /* HomeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14CADA1E28B3DC11005D5912 /* HomeTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -56,6 +62,10 @@
 		14A6514228B141F90098CAC4 /* Reuseble.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reuseble.swift; sourceTree = "<group>"; };
 		14A6514528B1448E0098CAC4 /* SecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
 		14A6514728B144CE0098CAC4 /* SecondView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondView.swift; sourceTree = "<group>"; };
+		14CADA1328B3D68E005D5912 /* BaseTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTableViewCell.swift; sourceTree = "<group>"; };
+		14CADA1528B3D850005D5912 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		14CADA1C28B3D995005D5912 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		14CADA1E28B3DC11005D5912 /* HomeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,10 +73,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				14CADA1B28B3D882005D5912 /* RealmSwift in Frameworks */,
 				142161FF28B1F03100BB9D50 /* SwiftyJSON in Frameworks */,
 				1421620228B1F04000BB9D50 /* Alamofire in Frameworks */,
 				142161FC28B1F02400BB9D50 /* Kingfisher in Frameworks */,
 				14A6514028B137F60098CAC4 /* SnapKit in Frameworks */,
+				14CADA1928B3D882005D5912 /* Realm in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -103,6 +115,7 @@
 			children = (
 				1421620928B2100900BB9D50 /* Data */,
 				14A6514128B141E80098CAC4 /* Constant */,
+				14CADA1228B3D5BA005D5912 /* Home */,
 				14A6513128B134E50098CAC4 /* Main */,
 				14A6513B28B135F20098CAC4 /* Utility */,
 				14A6511C28B1319B0098CAC4 /* AppDelegate.swift */,
@@ -122,6 +135,7 @@
 				14A6513228B134F30098CAC4 /* BaseViewController.swift */,
 				14A6513628B135590098CAC4 /* BaseView.swift */,
 				142161F828B1E78600BB9D50 /* BaseViewCell.swift */,
+				14CADA1328B3D68E005D5912 /* BaseTableViewCell.swift */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -130,10 +144,10 @@
 			isa = PBXGroup;
 			children = (
 				14A6513428B135260098CAC4 /* MainViewController.swift */,
-				14A6514528B1448E0098CAC4 /* SecondViewController.swift */,
-				142161F628B1E2A000BB9D50 /* SecondCollectionViewCell.swift */,
 				14A6513828B1357A0098CAC4 /* MainView.swift */,
+				14A6514528B1448E0098CAC4 /* SecondViewController.swift */,
 				14A6514728B144CE0098CAC4 /* SecondView.swift */,
+				142161F628B1E2A000BB9D50 /* SecondCollectionViewCell.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -165,6 +179,16 @@
 			path = Constant;
 			sourceTree = "<group>";
 		};
+		14CADA1228B3D5BA005D5912 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				14CADA1528B3D850005D5912 /* HomeViewController.swift */,
+				14CADA1C28B3D995005D5912 /* HomeView.swift */,
+				14CADA1E28B3DC11005D5912 /* HomeTableViewCell.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -186,6 +210,8 @@
 				142161FB28B1F02400BB9D50 /* Kingfisher */,
 				142161FE28B1F03100BB9D50 /* SwiftyJSON */,
 				1421620128B1F04000BB9D50 /* Alamofire */,
+				14CADA1828B3D882005D5912 /* Realm */,
+				14CADA1A28B3D882005D5912 /* RealmSwift */,
 			);
 			productName = Diary;
 			productReference = 14A6511928B1319B0098CAC4 /* Diary.app */;
@@ -220,6 +246,7 @@
 				142161FA28B1F02400BB9D50 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 				142161FD28B1F03100BB9D50 /* XCRemoteSwiftPackageReference "SwiftyJSON" */,
 				1421620028B1F04000BB9D50 /* XCRemoteSwiftPackageReference "Alamofire" */,
+				14CADA1728B3D882005D5912 /* XCRemoteSwiftPackageReference "realm-swift" */,
 			);
 			productRefGroup = 14A6511A28B1319B0098CAC4 /* Products */;
 			projectDirPath = "";
@@ -250,15 +277,19 @@
 			files = (
 				1421620B28B2102900BB9D50 /* UnsplashData.swift in Sources */,
 				14A6512128B1319B0098CAC4 /* ViewController.swift in Sources */,
+				14CADA1628B3D850005D5912 /* HomeViewController.swift in Sources */,
 				14A6513928B1357A0098CAC4 /* MainView.swift in Sources */,
 				14A6514328B141F90098CAC4 /* Reuseble.swift in Sources */,
+				14CADA1428B3D68E005D5912 /* BaseTableViewCell.swift in Sources */,
 				142161F728B1E2A000BB9D50 /* SecondCollectionViewCell.swift in Sources */,
 				14A6513328B134F30098CAC4 /* BaseViewController.swift in Sources */,
 				142161F928B1E78600BB9D50 /* BaseViewCell.swift in Sources */,
+				14CADA1F28B3DC11005D5912 /* HomeTableViewCell.swift in Sources */,
 				14A6511D28B1319B0098CAC4 /* AppDelegate.swift in Sources */,
 				14A6514828B144CE0098CAC4 /* SecondView.swift in Sources */,
 				1421620428B1F0B400BB9D50 /* APIKey.swift in Sources */,
 				14A6513D28B1360F0098CAC4 /* CustomTextField.swift in Sources */,
+				14CADA1D28B3D995005D5912 /* HomeView.swift in Sources */,
 				1421620828B1FAB800BB9D50 /* EndPoint.swift in Sources */,
 				14A6513728B135590098CAC4 /* BaseView.swift in Sources */,
 				14A6511F28B1319B0098CAC4 /* SceneDelegate.swift in Sources */,
@@ -514,6 +545,14 @@
 				minimumVersion = 5.0.0;
 			};
 		};
+		14CADA1728B3D882005D5912 /* XCRemoteSwiftPackageReference "realm-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/realm/realm-swift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 10.28.6;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -536,6 +575,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 14A6513E28B137F60098CAC4 /* XCRemoteSwiftPackageReference "SnapKit" */;
 			productName = SnapKit;
+		};
+		14CADA1828B3D882005D5912 /* Realm */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 14CADA1728B3D882005D5912 /* XCRemoteSwiftPackageReference "realm-swift" */;
+			productName = Realm;
+		};
+		14CADA1A28B3D882005D5912 /* RealmSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 14CADA1728B3D882005D5912 /* XCRemoteSwiftPackageReference "realm-swift" */;
+			productName = RealmSwift;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

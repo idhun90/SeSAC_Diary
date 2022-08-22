@@ -22,6 +22,7 @@ class MainViewController: BaseViewController {
     @objc func clickedChoiceButton() {
         
         let vc = SecondViewController()
+        
         vc.dataHandler = {
  
             if let selectedImageUrl = vc.selectedImageUrl {
@@ -31,7 +32,6 @@ class MainViewController: BaseViewController {
                 self.mainView.photoImageView.image = UIImage(systemName: "xmark")
             }
         }
-        
         
         let nvc = UINavigationController(rootViewController: vc)
         nvc.modalPresentationStyle = .fullScreen
