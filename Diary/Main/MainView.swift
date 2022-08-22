@@ -7,7 +7,7 @@ class MainView: BaseView {
     
     let photoImageView: UIImageView = {
         let view = UIImageView()
-        view.backgroundColor = .systemGray6
+        view.backgroundColor = .systemBackground
         view.layer.cornerRadius = 4
         view.layer.masksToBounds = true
         view.contentMode = .scaleAspectFill
@@ -29,7 +29,7 @@ class MainView: BaseView {
     let mainTextView: UITextView = {
         let view = UITextView()
         view.layer.cornerRadius = 4
-        view.backgroundColor = .systemGray6
+        view.backgroundColor = .systemBackground
         return view
     }()
     
@@ -56,15 +56,14 @@ class MainView: BaseView {
         [photoImageView, titleTextField, dataTextField, mainTextView, choiceButton] .forEach {
             self.addSubview($0)
         }
-        
+        self.backgroundColor = .systemGray6
 //        photoImageView.addSubview(choiceButton) // 이렇게 추가하면 버튼 클릭 안 됌
-        
     }
     
     override func setConstaints() {
         
         photoImageView.snp.makeConstraints {
-            $0.top.equalTo(self.safeAreaLayoutGuide.snp.top).offset(20)
+            $0.top.equalTo(self.safeAreaLayoutGuide.snp.top).offset(0)
             $0.leading.equalTo(self.safeAreaLayoutGuide.snp.leading).offset(20)
             $0.trailing.equalTo(self.safeAreaLayoutGuide.snp.trailing).inset(20)
             $0.height.equalToSuperview().multipliedBy(0.3)
@@ -74,14 +73,14 @@ class MainView: BaseView {
             $0.top.equalTo(photoImageView.snp.bottom).offset(20)
             $0.leading.equalTo(self.safeAreaLayoutGuide.snp.leading).offset(20)
             $0.trailing.equalTo(self.safeAreaLayoutGuide.snp.trailing).inset(20)
-            $0.height.equalTo(60)
+            $0.height.equalTo(50)
         }
         
         dataTextField.snp.makeConstraints {
             $0.top.equalTo(titleTextField.snp.bottom).offset(20)
             $0.leading.equalTo(self.safeAreaLayoutGuide.snp.leading).offset(20)
             $0.trailing.equalTo(self.safeAreaLayoutGuide.snp.trailing).inset(20)
-            $0.height.equalTo(60)
+            $0.height.equalTo(50)
         }
         
         mainTextView.snp.makeConstraints {

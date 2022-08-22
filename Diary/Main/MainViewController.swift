@@ -1,10 +1,13 @@
 import UIKit
 
 import Kingfisher
+import RealmSwift
 
 class MainViewController: BaseViewController {
     
     var mainView = MainView()
+    
+    let localRealm = try! Realm()
     
     override func loadView() {
         self.view = mainView
@@ -12,7 +15,23 @@ class MainViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        mainView.backgroundColor = .systemBackground
+        
+        navigationBarUI()
+
+    }
+    
+    func navigationBarUI() {
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "저장", style: .done, target: self, action: #selector(ClickedSaveButton))
+    }
+    
+    @objc func ClickedSaveButton() {
+        let task = USerDiary(title: "오늘의 일기\(Int.random(in: 1...100))", content: "테스트", date: Date(), createdDate: Date(), photo: nil)
+        
+        try! localRealm.write {
+            localRealm.add(task)
+            print("Realm add Succed")
+            self.navigationController?.popViewController(animated: true)
+        }
     }
     
     override func configure() {

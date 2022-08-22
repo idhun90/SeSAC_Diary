@@ -20,6 +20,7 @@ class SecondView: BaseView {
         layout.minimumLineSpacing = spacing * 2
         layout.minimumInteritemSpacing = 0
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.backgroundColor = .systemGray6
         
         return collectionView
     }()
@@ -36,6 +37,7 @@ class SecondView: BaseView {
         [photoSearchBar, secondCollectionView].forEach {
             self.addSubview($0)
         }
+        self.backgroundColor = .systemGray6
     }
     
     override func setConstaints() {

@@ -19,10 +19,9 @@ class SecondViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        mainView.backgroundColor = .systemBackground
         mainView.photoSearchBar.delegate = self
         
-        setupNavigationButton()
+        navigationBarUI()
         setupCollectionView()
         
     }
@@ -37,7 +36,8 @@ class SecondViewController: BaseViewController {
         self.dismiss(animated: true)
     }
     
-    func setupNavigationButton() {
+    func navigationBarUI() {
+        title = "이미지 검색"
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "취소", style: .plain, target: self, action: #selector(cancelButtonClicked))
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "선택", style: .done, target: self, action: #selector(selectButtonClicked))
     }

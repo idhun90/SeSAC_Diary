@@ -5,8 +5,8 @@ import SnapKit
 class HomeView: BaseView {
     
     let tableView: UITableView = {
-        let view = UITableView()
-        view.backgroundColor = .systemBackground
+        let view = UITableView(frame: .zero, style: .insetGrouped)
+        view.backgroundColor = .systemGray6
         return view
     }()
     
@@ -23,7 +23,7 @@ class HomeView: BaseView {
     
     override func configure() {
         self.addSubview(tableView)
-        self.backgroundColor = .systemBackground
+        self.backgroundColor = .systemGray6
         
         
     }

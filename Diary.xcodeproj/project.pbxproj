@@ -37,6 +37,7 @@
 		14CADA1B28B3D882005D5912 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 14CADA1A28B3D882005D5912 /* RealmSwift */; };
 		14CADA1D28B3D995005D5912 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14CADA1C28B3D995005D5912 /* HomeView.swift */; };
 		14CADA1F28B3DC11005D5912 /* HomeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14CADA1E28B3DC11005D5912 /* HomeTableViewCell.swift */; };
+		14CADA2328B3EC5F005D5912 /* RealmModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14CADA2228B3EC5F005D5912 /* RealmModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -66,6 +67,7 @@
 		14CADA1528B3D850005D5912 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		14CADA1C28B3D995005D5912 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		14CADA1E28B3DC11005D5912 /* HomeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTableViewCell.swift; sourceTree = "<group>"; };
+		14CADA2228B3EC5F005D5912 /* RealmModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -113,6 +115,7 @@
 		14A6511B28B1319B0098CAC4 /* Diary */ = {
 			isa = PBXGroup;
 			children = (
+				14CADA2128B3EC41005D5912 /* Realm */,
 				1421620928B2100900BB9D50 /* Data */,
 				14A6514128B141E80098CAC4 /* Constant */,
 				14CADA1228B3D5BA005D5912 /* Home */,
@@ -187,6 +190,14 @@
 				14CADA1E28B3DC11005D5912 /* HomeTableViewCell.swift */,
 			);
 			path = Home;
+			sourceTree = "<group>";
+		};
+		14CADA2128B3EC41005D5912 /* Realm */ = {
+			isa = PBXGroup;
+			children = (
+				14CADA2228B3EC5F005D5912 /* RealmModel.swift */,
+			);
+			path = Realm;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -278,6 +289,7 @@
 				1421620B28B2102900BB9D50 /* UnsplashData.swift in Sources */,
 				14A6512128B1319B0098CAC4 /* ViewController.swift in Sources */,
 				14CADA1628B3D850005D5912 /* HomeViewController.swift in Sources */,
+				14CADA2328B3EC5F005D5912 /* RealmModel.swift in Sources */,
 				14A6513928B1357A0098CAC4 /* MainView.swift in Sources */,
 				14A6514328B141F90098CAC4 /* Reuseble.swift in Sources */,
 				14CADA1428B3D68E005D5912 /* BaseTableViewCell.swift in Sources */,
