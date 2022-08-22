@@ -48,9 +48,9 @@ class SecondCollectionViewCell: BaseViewCell {
         }
         
         selectedButton.snp.makeConstraints {
-            $0.trailing.equalTo(searchedImageView.snp.trailing).inset(4)
-            $0.bottom.equalTo(searchedImageView.snp.bottom).inset(4)
-            $0.width.height.equalTo(20)
+            $0.trailing.equalTo(searchedImageView.snp.trailing).inset(2)
+            $0.bottom.equalTo(searchedImageView.snp.bottom).inset(2)
+            $0.width.height.equalTo(24)
         }
     }
     

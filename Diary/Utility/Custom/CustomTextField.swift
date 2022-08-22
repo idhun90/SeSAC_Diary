@@ -12,8 +12,9 @@ class CustomTextField: UITextField {
     }
     
     func configureUI() {
-        self.borderStyle = .line
+        self.borderStyle = .none
         self.backgroundColor = .systemBackground
+        self.textAlignment = .center
         self.layer.cornerRadius = 4
         self.layer.masksToBounds = true
         self.layer.borderWidth = 1
