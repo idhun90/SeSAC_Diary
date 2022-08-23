@@ -42,7 +42,6 @@ class HomeViewController: BaseViewController {
 //        vc.modalPresentationStyle = .fullScreen
 //        self.present(nav, animated: true)
         self.navigationController?.pushViewController(vc, animated: true)
-        
     }
     
     override func configure() {

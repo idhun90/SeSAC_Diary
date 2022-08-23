@@ -1,4 +1,5 @@
 import UIKit
+import PhotosUI
 
 import Kingfisher
 import RealmSwift
@@ -8,6 +9,13 @@ class MainViewController: BaseViewController {
     var mainView = MainView()
     
     let localRealm = try! Realm()
+    
+    
+    
+//    configuration.filter = .images
+//    let picker = PHPickerViewController(configuration: configuration)
+    
+    
     
     override func loadView() {
         self.view = mainView
@@ -21,9 +29,7 @@ class MainViewController: BaseViewController {
     }
     
     func navigationBarUI() {
-        navigationItem.largeTitleDisplayMode = .never // 해당 코드가 없으면 현재 페이지에서도 타이틀이 없어도 타이틀이 큰 화면으로 나타나면서 네비게이션바와 이미지뷰 사이에 여백이 생기게 된다.
-        //        navigationController?.navigationBar.prefersLargeTitles = false
-        //여기서 false하면 이전 페이지에도 영향이 있었음.
+        navigationItem.largeTitleDisplayMode = .never
         title = "일기 작성"
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "저장", style: .done, target: self, action: #selector(ClickedSaveButton))
     }
@@ -43,10 +49,7 @@ class MainViewController: BaseViewController {
     }
     
     @objc func clickedChoiceButton() {
-        // 검색, 카메라, 사진
-        
-        
-        
+    
         var childeren: [UIAction] {
             
             let search = UIAction(title: "검색", subtitle: nil, image: UIImage(systemName: "magnifyingglass"), identifier: nil, discoverabilityTitle: nil, attributes: .init(), state: .off) { _ in
@@ -73,6 +76,14 @@ class MainViewController: BaseViewController {
             
             let photoAlbum = UIAction(title: "앨범", subtitle: nil, image: UIImage(systemName: "photo"), identifier: nil, discoverabilityTitle: nil, attributes: .init(), state: .off) { _ in
                 print("사진 앨범 선택")
+                
+                // PHPickerViewController
+                var configuration = PHPickerConfiguration()
+                configuration.selectionLimit = 1
+                configuration.filter = .images
+                let picker = PHPickerViewController(configuration: configuration)
+                picker.delegate = self
+                self.present(picker, animated: true, completion: nil)
             }
             
             return [camera, photoAlbum, search]
@@ -80,7 +91,28 @@ class MainViewController: BaseViewController {
         
         self.mainView.choiceButton.menu = UIMenu(title: "", subtitle: nil, image: nil, identifier: nil, options: .displayInline, children: childeren)
         self.mainView.choiceButton.showsMenuAsPrimaryAction = true
+    }
+}
+
+extension MainViewController: PHPickerViewControllerDelegate {
+    func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
+        
+        picker.dismiss(animated: true)
+        
+        let itemProvider = results.first?.itemProvider
+        
+        if let itemProvider = itemProvider, itemProvider.canLoadObject(ofClass: UIImage.self) {
+            itemProvider.loadObject(ofClass: UIImage.self) { (image, error) in
+                DispatchQueue.main.async {
+                    self.mainView.photoImageView.image = image as? UIImage
+                }
+            }
+        } else {
+            print("오류 발생")
+        }
         
         
     }
+    
+    
 }

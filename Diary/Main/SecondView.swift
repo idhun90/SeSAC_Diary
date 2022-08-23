@@ -43,15 +43,13 @@ class SecondView: BaseView {
     override func setConstaints() {
         photoSearchBar.snp.makeConstraints {
             $0.top.equalTo(self.safeAreaLayoutGuide.snp.top)
-            $0.leading.equalTo(self.safeAreaLayoutGuide.snp.leading)
-            $0.trailing.equalTo(self.safeAreaLayoutGuide.snp.trailing)
+            $0.leading.trailing.equalTo(self.safeAreaLayoutGuide)
             $0.height.equalTo(50)
         }
         
         secondCollectionView.snp.makeConstraints {
             $0.top.equalTo(photoSearchBar.snp.bottom)
-            $0.leading.equalTo(self.safeAreaLayoutGuide.snp.leading)
-            $0.trailing.equalTo(self.safeAreaLayoutGuide.snp.trailing)
+            $0.leading.trailing.equalTo(self.safeAreaLayoutGuide)
             $0.bottom.equalTo(self.snp.bottom)
         }
     }
