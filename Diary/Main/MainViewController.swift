@@ -21,6 +21,10 @@ class MainViewController: BaseViewController {
     }
     
     func navigationBarUI() {
+        navigationItem.largeTitleDisplayMode = .never // 해당 코드가 없으면 현재 페이지에서도 타이틀이 없어도 타이틀이 큰 화면으로 나타나면서 네비게이션바와 이미지뷰 사이에 여백이 생기게 된다.
+//        navigationController?.navigationBar.prefersLargeTitles = false
+        //여기서 false하면 이전 페이지에도 영향이 있었음.
+        title = "일기 작성"
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "저장", style: .done, target: self, action: #selector(ClickedSaveButton))
     }
     
