@@ -63,7 +63,7 @@ class MainView: BaseView {
     override func setConstaints() {
         
         photoImageView.snp.makeConstraints {
-            $0.top.equalTo(self.safeAreaLayoutGuide.snp.top).offset(0)
+            $0.top.equalTo(self.safeAreaLayoutGuide.snp.top).offset(20)
             $0.leading.equalTo(self.safeAreaLayoutGuide.snp.leading).offset(20)
             $0.trailing.equalTo(self.safeAreaLayoutGuide.snp.trailing).inset(20)
             $0.height.equalToSuperview().multipliedBy(0.3)

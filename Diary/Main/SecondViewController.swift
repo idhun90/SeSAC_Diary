@@ -25,6 +25,13 @@ class SecondViewController: BaseViewController {
         setupCollectionView()
         
     }
+    
+    func navigationBarUI() {
+        title = "이미지 검색"
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "취소", style: .plain, target: self, action: #selector(cancelButtonClicked))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "선택", style: .done, target: self, action: #selector(selectButtonClicked))
+    }
+    
     // objc 함수
     @objc func selectButtonClicked() {
         dataHandler?()
@@ -34,12 +41,6 @@ class SecondViewController: BaseViewController {
     @objc func cancelButtonClicked() {
         selectedImageUrl = nil
         self.dismiss(animated: true)
-    }
-    
-    func navigationBarUI() {
-        title = "이미지 검색"
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "취소", style: .plain, target: self, action: #selector(cancelButtonClicked))
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "선택", style: .done, target: self, action: #selector(selectButtonClicked))
     }
     
     // 이곳에 하는 게 맞을까?

@@ -10,6 +10,10 @@ class HomeTableViewCell: BaseTableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func setData(data: USerDiary) {
+        textLabel?.text = data.title
+    }
+    
     override func configure() {
         self.backgroundColor = .systemBackground
     }

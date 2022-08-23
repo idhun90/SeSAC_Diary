@@ -18,11 +18,13 @@ class HomeViewController: BaseViewController {
         navigationBarUI()
         savedDate()
     }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         print(#function)
         mainView.tableView.reloadData()
     }
+    
     func savedDate() {
         tasks = localRealm.objects(USerDiary.self).sorted(byKeyPath: "title", ascending: true)
     }
@@ -58,7 +60,8 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: HomeTableViewCell.reusebleIdentifier, for: indexPath) as? HomeTableViewCell else { return UITableViewCell() }
         
-        cell.textLabel?.text = tasks[indexPath.row].title
+        //cell.textLabel?.text = tasks[indexPath.row].title
+        cell.setData(data: tasks[indexPath.row])
         return cell
     }
     

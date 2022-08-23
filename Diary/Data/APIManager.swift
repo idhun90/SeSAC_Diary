@@ -5,7 +5,6 @@ import SwiftyJSON
 
 class APIManager {
 
-    
     static let shared = APIManager()
     
     private init() {}
@@ -24,8 +23,6 @@ class APIManager {
                 }
                 print("==================\(imageData.count)====================") // 30이 나와야함
                 completionHandler(imageData)
-                
-                
                 
             case .failure(let error):
                 print(error)
