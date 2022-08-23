@@ -7,7 +7,7 @@ class HomeViewController: BaseViewController {
     let mainView = HomeView()
     
     let localRealm = try! Realm()
-    var tasks: Results<USerDiary>!
+    var tasks: Results<USerDiary>! //didSet 구문 활용해보기
     
     override func loadView() {
         self.view = mainView
@@ -38,10 +38,7 @@ class HomeViewController: BaseViewController {
     @objc func plusButtonClicked() {
         
         let vc = MainViewController()
-//        let nav = UINavigationController(rootViewController: vc)
-//        vc.modalPresentationStyle = .fullScreen
-//        self.present(nav, animated: true)
-        self.navigationController?.pushViewController(vc, animated: true)
+        transition(viewController: vc, transitionStyle: .push)
     }
     
     override func configure() {

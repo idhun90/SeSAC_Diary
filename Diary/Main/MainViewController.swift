@@ -46,6 +46,7 @@ class MainViewController: BaseViewController {
             let search = UIAction(title: "검색", subtitle: nil, image: UIImage(systemName: "magnifyingglass"), identifier: nil, discoverabilityTitle: nil, attributes: .init(), state: .off) { _ in
                 
                 let vc = SecondViewController()
+                
                 vc.dataHandler = {
                     if let selectedImageUrl = vc.selectedImageUrl {
                         let url = URL(string: selectedImageUrl)
@@ -56,9 +57,7 @@ class MainViewController: BaseViewController {
                 }
                 
                 let nvc = UINavigationController(rootViewController: vc)
-                nvc.modalPresentationStyle = .fullScreen
-                
-                self.present(nvc, animated: true)
+                self.transition(viewController: nvc, transitionStyle: .presentFullScreen)
             }
             
             let camera = UIAction(title: "카메라", subtitle: nil, image: UIImage(systemName: "camera"), identifier: nil, discoverabilityTitle: nil, attributes: .init(), state: .off) { _ in
