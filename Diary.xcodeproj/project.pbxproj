@@ -96,6 +96,13 @@
 			path = Data;
 			sourceTree = "<group>";
 		};
+		143AEAB328B541F700AB1A21 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
 		14A6511028B1319B0098CAC4 = {
 			isa = PBXGroup;
 			children = (
@@ -115,6 +122,7 @@
 		14A6511B28B1319B0098CAC4 /* Diary */ = {
 			isa = PBXGroup;
 			children = (
+				143AEAB328B541F700AB1A21 /* Extension */,
 				14CADA2128B3EC41005D5912 /* Realm */,
 				1421620928B2100900BB9D50 /* Data */,
 				14A6514128B141E80098CAC4 /* Constant */,
@@ -454,6 +462,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 7CR6X9MD8C;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Diary/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -481,6 +490,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 7CR6X9MD8C;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Diary/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;

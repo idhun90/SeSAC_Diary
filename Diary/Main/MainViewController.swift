@@ -9,23 +9,14 @@ class MainViewController: BaseViewController {
     var mainView = MainView()
     
     let localRealm = try! Realm()
-    
-    
-    
-//    configuration.filter = .images
-//    let picker = PHPickerViewController(configuration: configuration)
-    
-    
-    
+
     override func loadView() {
         self.view = mainView
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         navigationBarUI()
-        
     }
     
     func navigationBarUI() {
@@ -72,6 +63,16 @@ class MainViewController: BaseViewController {
             
             let camera = UIAction(title: "카메라", subtitle: nil, image: UIImage(systemName: "camera"), identifier: nil, discoverabilityTitle: nil, attributes: .init(), state: .off) { _ in
                 print("카메라 선택")
+                
+                let picker = UIImagePickerController()
+                guard UIImagePickerController.isSourceTypeAvailable(.camera) else { return }
+                picker.sourceType = .camera
+                picker.allowsEditing = true
+                picker.delegate = self
+                
+                self.present(picker, animated: true)
+                
+                
             }
             
             let photoAlbum = UIAction(title: "앨범", subtitle: nil, image: UIImage(systemName: "photo"), identifier: nil, discoverabilityTitle: nil, attributes: .init(), state: .off) { _ in
@@ -94,6 +95,19 @@ class MainViewController: BaseViewController {
     }
 }
 
+extension MainViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        
+        if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+            self.mainView.photoImageView.image = image
+            self.dismiss(animated: true)
+            print("정상 작동")
+        }
+    }
+    
+}
+
 extension MainViewController: PHPickerViewControllerDelegate {
     func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
         
@@ -110,9 +124,5 @@ extension MainViewController: PHPickerViewControllerDelegate {
         } else {
             print("오류 발생")
         }
-        
-        
     }
-    
-    
 }
