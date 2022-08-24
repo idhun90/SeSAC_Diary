@@ -24,6 +24,7 @@ class MainViewController: BaseViewController {
         navigationItem.largeTitleDisplayMode = .never
         title = "일기 작성"
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "저장", style: .done, target: self, action: #selector(ClickedSaveButton))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "취소", style: .plain, target: self, action: #selector(cancelButtonClicked))
     }
     
     @objc func ClickedSaveButton() {
@@ -32,8 +33,12 @@ class MainViewController: BaseViewController {
         try! localRealm.write {
             localRealm.add(task)
             print("Realm add Succed")
-            self.navigationController?.popViewController(animated: true)
+            unwind(unwindStyle: .pop)
         }
+    }
+    
+    @objc func cancelButtonClicked() {
+        self.dismiss(animated: true)
     }
     
     override func configure() {
@@ -62,8 +67,7 @@ class MainViewController: BaseViewController {
                     }
                 }
                 
-                let nvc = UINavigationController(rootViewController: vc)
-                self.transition(viewController: nvc, transitionStyle: .presentFullScreen)
+                self.transition(viewController: vc, transitionStyle: .presentFullScreen)
             }
             
             let camera = UIAction(title: "카메라", subtitle: nil, image: UIImage(systemName: "camera"), identifier: nil, discoverabilityTitle: nil, attributes: .init(), state: .off) { _ in
@@ -76,8 +80,6 @@ class MainViewController: BaseViewController {
                 picker.delegate = self
                 
                 self.present(picker, animated: true)
-                
-                
             }
             
             let photoAlbum = UIAction(title: "앨범", subtitle: nil, image: UIImage(systemName: "photo"), identifier: nil, discoverabilityTitle: nil, attributes: .init(), state: .off) { _ in
@@ -89,6 +91,7 @@ class MainViewController: BaseViewController {
                 configuration.filter = .images
                 let picker = PHPickerViewController(configuration: configuration)
                 picker.delegate = self
+                
                 self.present(picker, animated: true, completion: nil)
             }
             
@@ -105,7 +108,7 @@ extension MainViewController: UIImagePickerControllerDelegate, UINavigationContr
         
         if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
             self.mainView.photoImageView.image = image
-            self.dismiss(animated: true)
+            unwind(unwindStyle: .dismiss)
             print("정상 작동")
         }
     }

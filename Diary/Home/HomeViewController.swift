@@ -33,12 +33,12 @@ class HomeViewController: BaseViewController {
         title = "일기장"
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "plus"), style: .plain, target: self, action: #selector(plusButtonClicked))
+        
     }
     
     @objc func plusButtonClicked() {
-        
         let vc = MainViewController()
-        transition(viewController: vc, transitionStyle: .push)
+        transition(viewController: vc, transitionStyle: .presentFullScreen)
     }
     
     override func configure() {
@@ -56,8 +56,8 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: HomeTableViewCell.reusebleIdentifier, for: indexPath) as? HomeTableViewCell else { return UITableViewCell() }
         
-        //cell.textLabel?.text = tasks[indexPath.row].title
         cell.setData(data: tasks[indexPath.row])
+        
         return cell
     }
     

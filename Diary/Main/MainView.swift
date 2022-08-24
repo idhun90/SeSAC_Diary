@@ -62,32 +62,34 @@ class MainView: BaseView {
     
     override func setConstaints() {
         
+        let spacing = 20
+        
         photoImageView.snp.makeConstraints {
-            $0.top.equalTo(self.safeAreaLayoutGuide.snp.top).offset(20)
-            $0.leading.equalTo(self.safeAreaLayoutGuide.snp.leading).offset(20)
-            $0.trailing.equalTo(self.safeAreaLayoutGuide.snp.trailing).inset(20)
+            $0.top.equalTo(self.safeAreaLayoutGuide.snp.top).offset(spacing)
+            $0.leading.equalTo(self.safeAreaLayoutGuide.snp.leading).offset(spacing)
+            $0.trailing.equalTo(self.safeAreaLayoutGuide.snp.trailing).inset(spacing)
             $0.height.equalToSuperview().multipliedBy(0.3)
         }
         
         titleTextField.snp.makeConstraints {
-            $0.top.equalTo(photoImageView.snp.bottom).offset(20)
-            $0.leading.equalTo(self.safeAreaLayoutGuide.snp.leading).offset(20)
-            $0.trailing.equalTo(self.safeAreaLayoutGuide.snp.trailing).inset(20)
+            $0.top.equalTo(photoImageView.snp.bottom).offset(spacing)
+            $0.leading.equalTo(self.safeAreaLayoutGuide.snp.leading).offset(spacing)
+            $0.trailing.equalTo(self.safeAreaLayoutGuide.snp.trailing).inset(spacing)
             $0.height.equalTo(50)
         }
         
         dataTextField.snp.makeConstraints {
-            $0.top.equalTo(titleTextField.snp.bottom).offset(20)
-            $0.leading.equalTo(self.safeAreaLayoutGuide.snp.leading).offset(20)
-            $0.trailing.equalTo(self.safeAreaLayoutGuide.snp.trailing).inset(20)
+            $0.top.equalTo(titleTextField.snp.bottom).offset(spacing)
+            $0.leading.equalTo(self.safeAreaLayoutGuide.snp.leading).offset(spacing)
+            $0.trailing.equalTo(self.safeAreaLayoutGuide.snp.trailing).inset(spacing)
             $0.height.equalTo(50)
         }
         
         mainTextView.snp.makeConstraints {
-            $0.top.equalTo(dataTextField.snp.bottom).offset(20)
-            $0.leading.equalTo(self.safeAreaLayoutGuide.snp.leading).offset(20)
-            $0.trailing.equalTo(self.safeAreaLayoutGuide.snp.trailing).inset(20)
-            $0.bottom.equalTo(self.safeAreaLayoutGuide.snp.bottom).inset(20)
+            $0.top.equalTo(dataTextField.snp.bottom).offset(spacing)
+            $0.leading.equalTo(self.safeAreaLayoutGuide.snp.leading).offset(spacing)
+            $0.trailing.equalTo(self.safeAreaLayoutGuide.snp.trailing).inset(spacing)
+            $0.bottom.equalTo(self.safeAreaLayoutGuide.snp.bottom).inset(spacing)
         }
         
         choiceButton.snp.makeConstraints {

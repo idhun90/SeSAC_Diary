@@ -8,18 +8,34 @@ extension UIViewController {
         case push
     }
     
+    enum UnwindStyle {
+        case dismiss
+        case pop
+    }
+    
     func transition<T: UIViewController>(viewController: T, transitionStyle: TransitionStyle) {
         
         switch transitionStyle {
         case .present:
             self.present(viewController, animated: true)
         case .presentFullScreen:
-            let vc = viewController
-            vc.modalPresentationStyle = .fullScreen
-            self.present(vc, animated: true)
+            let nav = UINavigationController(rootViewController: viewController)
+            nav.modalPresentationStyle = .fullScreen
+            self.present(nav, animated: true)
         case .push:
             self.navigationController?.pushViewController(viewController, animated: true)
-
+        }
+        
+    }
+    
+    func unwind(unwindStyle: UnwindStyle) {
+        
+        switch unwindStyle {
+        case .dismiss:
+            self.dismiss(animated: true)
+        case .pop:
+            self.navigationController?.popViewController(animated: true)
         }
     }
+    
 }

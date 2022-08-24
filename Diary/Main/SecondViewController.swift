@@ -35,12 +35,12 @@ class SecondViewController: BaseViewController {
     // objc 함수
     @objc func selectButtonClicked() {
         dataHandler?()
-        self.dismiss(animated: true)
+        unwind(unwindStyle: .dismiss)
     }
     
     @objc func cancelButtonClicked() {
         selectedImageUrl = nil
-        self.dismiss(animated: true)
+        unwind(unwindStyle: .dismiss)
     }
     
     // 이곳에 하는 게 맞을까?
@@ -71,9 +71,8 @@ extension SecondViewController: UISearchBarDelegate {
         
         print("검색 버튼 클릭 함")
     }
-    
-    
 }
+
 extension SecondViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDataSourcePrefetching {
     
     func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
