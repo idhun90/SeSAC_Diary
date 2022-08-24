@@ -17,6 +17,7 @@ class MainViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationBarUI()
+        choiceButtonUIMenu()
     }
     
     func navigationBarUI() {
@@ -37,10 +38,15 @@ class MainViewController: BaseViewController {
     
     override func configure() {
         mainView.choiceButton.addTarget(self, action: #selector(clickedChoiceButton), for: .touchUpInside)
+        print(#function)
     }
     
     @objc func clickedChoiceButton() {
+        print(#function)
+        choiceButtonUIMenu()
+    }
     
+    func choiceButtonUIMenu() {
         var childeren: [UIAction] {
             
             let search = UIAction(title: "검색", subtitle: nil, image: UIImage(systemName: "magnifyingglass"), identifier: nil, discoverabilityTitle: nil, attributes: .init(), state: .off) { _ in
@@ -88,7 +94,6 @@ class MainViewController: BaseViewController {
             
             return [camera, photoAlbum, search]
         }
-        
         self.mainView.choiceButton.menu = UIMenu(title: "", subtitle: nil, image: nil, identifier: nil, options: .displayInline, children: childeren)
         self.mainView.choiceButton.showsMenuAsPrimaryAction = true
     }
