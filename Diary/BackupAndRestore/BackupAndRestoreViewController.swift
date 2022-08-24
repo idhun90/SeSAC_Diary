@@ -108,7 +108,19 @@ extension BackupAndRestoreViewController: UITableViewDelegate, UITableViewDataSo
                 cell.startRestore()
             }
         } else {
-            print("1 세션 클릭 됨")
+            print("\(indexPath) 클릭 됨")
         }
     }
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return indexPath.section == 0 ? false : true
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            print("\(indexPath.row) 삭제됨")
+            // 데이터도 함께 제거 필요
+        }
+    }
+    // 백업 내역 스와이프해서 내보내기 기능도 추가 가능할 듯
 }
