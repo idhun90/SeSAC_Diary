@@ -12,11 +12,3 @@ class BaseViewController: UIViewController {
     func setConstaints() { }
 }
 
-extension UIViewController {
-    
-    func transitionViewController<T: UIViewController>(viewController vc: T) {
-        
-        let controller = vc
-        self.present(controller, animated: true)
-    }
-}

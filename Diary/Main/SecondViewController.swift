@@ -30,6 +30,7 @@ class SecondViewController: BaseViewController {
         title = "이미지 검색"
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "취소", style: .plain, target: self, action: #selector(cancelButtonClicked))
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "선택", style: .done, target: self, action: #selector(selectButtonClicked))
+        navigationItem.rightBarButtonItem?.isEnabled = false
     }
     
     // objc 함수
@@ -102,6 +103,7 @@ extension SecondViewController: UICollectionViewDelegate, UICollectionViewDataSo
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         print("\(indexPath.item) 선택됨")
         
+        navigationItem.rightBarButtonItem?.isEnabled = true // 사진을 선택했을 때 '선택' 버튼 활성화
         selectedImageUrl = unsplashimage[indexPath.item].regularImageUrl
         
     }
