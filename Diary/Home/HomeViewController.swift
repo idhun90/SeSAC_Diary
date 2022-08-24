@@ -32,8 +32,34 @@ class HomeViewController: BaseViewController {
     func navigationBarUI() {
         title = "일기장"
         navigationController?.navigationBar.prefersLargeTitles = true
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "plus"), style: .plain, target: self, action: #selector(plusButtonClicked))
+        let plusButton = UIBarButtonItem(image: UIImage(systemName: "plus"), style: .plain, target: self, action: #selector(plusButtonClicked))
+        let optionButton = UIBarButtonItem(title: nil, image: UIImage(systemName: "ellipsis.circle"), primaryAction: nil, menu: setupUIMenu())
+        navigationItem.rightBarButtonItems = [plusButton, optionButton]
+    }
+
+    func setupUIMenu() -> UIMenu {
         
+        var sortChildren: [UIAction] {
+            let title = UIAction(title: "제목") { _ in }
+            let date = UIAction(title: "생성일") { _ in }
+            
+            return [title, date]
+        }
+        
+        let sortMenu = UIMenu(title: "다음으로 정렬", image: UIImage(systemName: "arrow.up.arrow.down"),options: .singleSelection, children: sortChildren)
+
+            var filterChildren: [UIAction] {
+                let ascending = UIAction(title: "필터1") { _ in }
+                let descending = UIAction(title: "필터2") { _ in }
+                
+                return [ascending, descending]
+            }
+            
+        let filterMenu = UIMenu(title: "필터", image: UIImage(systemName: "line.3.horizontal.decrease.circle"), options: .singleSelection, children: filterChildren)
+        
+        let menu = UIMenu(title: "", options: .displayInline, children: [sortMenu, filterMenu])
+        
+        return menu
     }
     
     @objc func plusButtonClicked() {
