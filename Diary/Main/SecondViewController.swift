@@ -23,7 +23,6 @@ class SecondViewController: BaseViewController {
         
         navigationBarUI()
         setupCollectionView()
-        
     }
     
     func navigationBarUI() {

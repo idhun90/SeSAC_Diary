@@ -9,7 +9,7 @@ class MainViewController: BaseViewController {
     var mainView = MainView()
     
     let localRealm = try! Realm()
-
+    
     override func loadView() {
         self.view = mainView
     }
@@ -38,7 +38,7 @@ class MainViewController: BaseViewController {
     }
     
     @objc func cancelButtonClicked() {
-        self.dismiss(animated: true)
+        unwind(unwindStyle: .dismiss)
     }
     
     override func configure() {
@@ -97,7 +97,7 @@ class MainViewController: BaseViewController {
             
             return [camera, photoAlbum, search]
         }
-        self.mainView.choiceButton.menu = UIMenu(title: "", subtitle: nil, image: nil, identifier: nil, options: .displayInline, children: childeren)
+        self.mainView.choiceButton.menu = UIMenu(title: "", options: .displayInline, children: childeren)
         self.mainView.choiceButton.showsMenuAsPrimaryAction = true
     }
 }
@@ -112,7 +112,6 @@ extension MainViewController: UIImagePickerControllerDelegate, UINavigationContr
             print("정상 작동")
         }
     }
-    
 }
 
 extension MainViewController: PHPickerViewControllerDelegate {

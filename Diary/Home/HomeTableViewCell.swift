@@ -16,31 +16,31 @@ class HomeTableViewCell: BaseTableViewCell {
     }()
     
     let titleLabel: UILabel = {
-        let view = UILabel()
+        let view = UILabel(frame: .zero)
         view.font = .systemFont(ofSize: 17, weight: .semibold)
         return view
     }()
     
     let dateLabel: UILabel = {
-        let view = UILabel()
+        let view = UILabel(frame: .zero)
         view.font = .systemFont(ofSize: 13, weight: .regular)
         view.textColor = .systemGray
         return view
     }()
     
     let contentLabel: UILabel = {
-        let view = UILabel()
+        let view = UILabel(frame: .zero)
         view.font = .systemFont(ofSize: 13, weight: .regular)
         view.textColor = .systemGray
         return view
     }()
     
     lazy var stactView: UIStackView = {
-        let view = UIStackView(arrangedSubviews: [titleLabel, dateLabel, contentLabel])
+        let view = UIStackView(arrangedSubviews: [titleLabel,contentLabel, dateLabel])
         view.axis = .vertical
         view.alignment = .fill
-        view.distribution = .fillEqually
-        view.spacing = 0
+        view.distribution = .fillProportionally
+        view.spacing = 1
         view.backgroundColor = .clear
         return view
     }()
@@ -83,6 +83,5 @@ class HomeTableViewCell: BaseTableViewCell {
             $0.trailing.lessThanOrEqualTo(self.homeImageView.snp.leading).offset(-spacing)
             $0.top.bottom.equalTo(self.homeImageView)
         }
-        
     }
 }

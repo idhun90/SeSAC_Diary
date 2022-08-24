@@ -4,6 +4,7 @@ extension UIViewController {
     
     enum TransitionStyle {
         case present
+        case presentNavigation
         case presentFullScreen
         case push
     }
@@ -18,6 +19,9 @@ extension UIViewController {
         switch transitionStyle {
         case .present:
             self.present(viewController, animated: true)
+        case .presentNavigation:
+            let nav = UINavigationController(rootViewController: viewController)
+            self.present(nav, animated: true)
         case .presentFullScreen:
             let nav = UINavigationController(rootViewController: viewController)
             nav.modalPresentationStyle = .fullScreen
@@ -25,7 +29,6 @@ extension UIViewController {
         case .push:
             self.navigationController?.pushViewController(viewController, animated: true)
         }
-        
     }
     
     func unwind(unwindStyle: UnwindStyle) {
@@ -37,5 +40,4 @@ extension UIViewController {
             self.navigationController?.popViewController(animated: true)
         }
     }
-    
 }

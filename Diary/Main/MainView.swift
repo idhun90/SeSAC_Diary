@@ -43,7 +43,6 @@ class MainView: BaseView {
         return view
     }()
     
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
     }
@@ -57,7 +56,7 @@ class MainView: BaseView {
             self.addSubview($0)
         }
         self.backgroundColor = .systemGray6
-//        photoImageView.addSubview(choiceButton) // 이렇게 추가하면 버튼 클릭 안 됌
+        //photoImageView.addSubview(choiceButton) // 이렇게 추가하면 버튼 클릭 안 됌
     }
     
     override func setConstaints() {

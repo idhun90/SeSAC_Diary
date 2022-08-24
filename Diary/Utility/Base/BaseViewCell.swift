@@ -14,6 +14,4 @@ class BaseViewCell: UICollectionViewCell {
     
     func configure() { }
     func setConstaints() { }
-
-    
 }
