@@ -6,9 +6,16 @@ class SecondViewController: BaseViewController {
     
     private var mainView = SecondView()
     
+    // 값전달: 프로토콜
+    var delegate: SelectImageDelegate? //
+    var selectIndexPath: IndexPath?
+    var selectImage: UIImage?
+    
     private var page = 1
     private let totalPage = 334 // 한페이지에 30개 불러올 때 기준
     private var unsplashimage: [UnsplashData] = []
+    
+    
     
     var selectedImageUrl: String?
     var dataHandler: (() -> ())?
@@ -34,7 +41,19 @@ class SecondViewController: BaseViewController {
     
     // objc 함수
     @objc func selectButtonClicked() {
-        dataHandler?()
+        //dataHandler?()
+        
+        // 값전달: 프로토콜
+        guard let selectImage = selectImage else {
+            print("사진을 선택해주세요.")
+            // Alret 추가
+            return
+        }
+        
+        // 값전달: 프로토콜
+        // 선택한 이미지를 전송
+        delegate?.sendImageData(image: selectImage)
+
         unwind(unwindStyle: .dismiss)
     }
     
@@ -106,6 +125,15 @@ extension SecondViewController: UICollectionViewDelegate, UICollectionViewDataSo
         navigationItem.rightBarButtonItem?.isEnabled = true // 사진을 선택했을 때 '선택' 버튼 활성화
         
         selectedImageUrl = unsplashimage[indexPath.item].regularImageUrl
+        
+//        // 선택한 Cell 이미지 가져오기
+        guard let cell = collectionView.cellForItem(at: indexPath) as? SecondCollectionViewCell else { return }
+        
+        selectImage = cell.searchedImageView.image
+        
+        // 선택한 cell indexPath 저장
+        selectIndexPath = indexPath
+//        collectionView.reloadData() // 왜 리로드했더라..?
         
     }
 }

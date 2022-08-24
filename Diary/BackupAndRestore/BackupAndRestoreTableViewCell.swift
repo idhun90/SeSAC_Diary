@@ -23,7 +23,6 @@ class BackupAndRestoreTableViewCell: BaseTableViewCell {
     
     override func configure() {
         self.contentView.addSubview(backupRestoreButton)
-        
     }
     
     override func setConstaints() {

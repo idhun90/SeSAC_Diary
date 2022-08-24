@@ -101,6 +101,8 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: HomeTableViewCell.reusebleIdentifier, for: indexPath) as? HomeTableViewCell else { return UITableViewCell() }
         
         cell.setData(data: tasks[indexPath.row])
+        //값전달: 프로토콜
+        cell.homeImageView.image = loadImageFromDocument(fileName: "\(tasks[indexPath.row].objectId).jpg")
         
         return cell
     }

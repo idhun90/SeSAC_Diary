@@ -4,6 +4,11 @@ import PhotosUI
 import Kingfisher
 import RealmSwift
 
+// 값전달: 프로토콜
+protocol SelectImageDelegate {
+    func sendImageData(image: UIImage)
+}
+
 class MainViewController: BaseViewController {
     
     var mainView = MainView()
@@ -28,13 +33,35 @@ class MainViewController: BaseViewController {
     }
     
     @objc func ClickedSaveButton() {
-        let task = USerDiary(title: "오늘의 일기\(Int.random(in: 1...100))", content: "테스트", date: Date(), createdDate: Date(), photo: nil)
+        // 텍스트 -> Realm 저장, 이미지 -> Document 저장
         
-        try! localRealm.write {
-            localRealm.add(task)
-            print("Realm add Succed")
-            unwind(unwindStyle: .pop)
+        guard let title = self.mainView.titleTextField.text else {
+            print("제목을 입력하세요.")
+            // Alret
+            return
         }
+        
+        let task = USerDiary(title: title, content: self.mainView.mainTextView.text!, date: Date(), createdDate: Date(), photo: nil)
+        
+        // try! 보다는 try do catch 구문 권장
+        do {
+            try localRealm.write {
+                localRealm.add(task)
+                print("Realm 저장 성공")
+            }
+        } catch let error {
+            print("Realm 저장 실패", error)
+        }
+        
+        // 텍스트를 Realm에 저장하고 나서, 이미지는 Document에 저장
+        if let image = mainView.photoImageView.image {
+            saveImageToDocument(fileName: "\(task.objectId).jpg", image: image)
+            print("이미지 도큐먼트에 저장됨")
+        } else {
+            print("이미지 도큐먼트에 저장안됨")
+        }
+        
+        unwind(unwindStyle: .dismiss)
     }
     
     @objc func cancelButtonClicked() {
@@ -58,16 +85,19 @@ class MainViewController: BaseViewController {
                 
                 let vc = SecondViewController()
                 
-                vc.dataHandler = {
-                    if let selectedImageUrl = vc.selectedImageUrl {
-                        let url = URL(string: selectedImageUrl)
-                        self.mainView.photoImageView.kf.setImage(with: url)
-                    } else {
-                        self.mainView.photoImageView.image = UIImage(systemName: "xmark")
-                    }
-                }
+//                vc.dataHandler = {
+//                    if let selectedImageUrl = vc.selectedImageUrl {
+//                        let url = URL(string: selectedImageUrl)
+//                        self.mainView.photoImageView.kf.setImage(with: url)
+//                    } else {
+//                        self.mainView.photoImageView.image = UIImage(systemName: "xmark")
+//                    }
+//                }
                 
-                self.transition(viewController: vc, transitionStyle: .presentFullScreen)
+                // 값전달: 프로토콜
+                vc.delegate = self
+                
+                self.transition(viewController: vc, transitionStyle: .presentNavigation)
             }
             
             let camera = UIAction(title: "카메라", image: UIImage(systemName: "camera")) { _ in
@@ -130,5 +160,13 @@ extension MainViewController: PHPickerViewControllerDelegate {
         } else {
             print("오류 발생")
         }
+    }
+}
+
+//값전달: 프로토콜
+extension MainViewController: SelectImageDelegate {
+    func sendImageData(image: UIImage) {
+        self.mainView.photoImageView.image = image
+        print(#function)
     }
 }

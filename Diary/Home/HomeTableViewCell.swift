@@ -55,8 +55,8 @@ class HomeTableViewCell: BaseTableViewCell {
     
     func setData(data: USerDiary) {
         titleLabel.text = data.title
-        dateLabel.text = "20220824"
-        contentLabel.text = "테스트 내용sdadsfasdfadsfsdafsdfdsfadsfadsfasdfsadfsadfas"
+        dateLabel.text = data.date.formatted()
+        contentLabel.text = data.content
     }
     
     override func configure() {
