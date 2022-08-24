@@ -17,7 +17,7 @@ class MainViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationBarUI()
-        choiceButtonUIMenu()
+        setupUIMenu()
     }
     
     func navigationBarUI() {
@@ -48,13 +48,13 @@ class MainViewController: BaseViewController {
     
     @objc func clickedChoiceButton() {
         print(#function)
-        choiceButtonUIMenu()
+        setupUIMenu()
     }
     
-    func choiceButtonUIMenu() {
+    func setupUIMenu() {
         var childeren: [UIAction] {
             
-            let search = UIAction(title: "검색", subtitle: nil, image: UIImage(systemName: "magnifyingglass"), identifier: nil, discoverabilityTitle: nil, attributes: .init(), state: .off) { _ in
+            let search = UIAction(title: "검색", image: UIImage(systemName: "magnifyingglass")) { _ in
                 
                 let vc = SecondViewController()
                 
@@ -70,7 +70,7 @@ class MainViewController: BaseViewController {
                 self.transition(viewController: vc, transitionStyle: .presentFullScreen)
             }
             
-            let camera = UIAction(title: "카메라", subtitle: nil, image: UIImage(systemName: "camera"), identifier: nil, discoverabilityTitle: nil, attributes: .init(), state: .off) { _ in
+            let camera = UIAction(title: "카메라", image: UIImage(systemName: "camera")) { _ in
                 print("카메라 선택")
                 
                 let picker = UIImagePickerController()
@@ -82,7 +82,7 @@ class MainViewController: BaseViewController {
                 self.present(picker, animated: true)
             }
             
-            let photoAlbum = UIAction(title: "앨범", subtitle: nil, image: UIImage(systemName: "photo"), identifier: nil, discoverabilityTitle: nil, attributes: .init(), state: .off) { _ in
+            let photoAlbum = UIAction(title: "앨범", image: UIImage(systemName: "photo")) { _ in
                 print("사진 앨범 선택")
                 
                 // PHPickerViewController

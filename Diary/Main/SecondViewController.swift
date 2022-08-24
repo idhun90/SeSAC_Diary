@@ -103,7 +103,9 @@ extension SecondViewController: UICollectionViewDelegate, UICollectionViewDataSo
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         print("\(indexPath.item) 선택됨")
         
+        title = "사진이 선택됨"
         navigationItem.rightBarButtonItem?.isEnabled = true // 사진을 선택했을 때 '선택' 버튼 활성화
+        
         selectedImageUrl = unsplashimage[indexPath.item].regularImageUrl
         
     }
