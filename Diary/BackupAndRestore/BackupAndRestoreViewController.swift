@@ -18,6 +18,9 @@ class BackupAndRestoreViewController: BaseViewController {
     
     let mainView = BackupAndRestoreView()
     
+    let buttonTitleList = ["데이터 백업", "데이터 복원"]
+    var backupData = ["백업 데이터"] // 수업 때 수정 필요
+    
     override func loadView() {
         self.view = mainView
     }
@@ -83,6 +86,8 @@ extension BackupAndRestoreViewController: UITableViewDelegate, UITableViewDataSo
         if indexPath.section == BackupAndRestore.backupAndRestore.rawValue {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: BackupAndRestoreTableViewCell.reusebleIdentifier, for: indexPath) as? BackupAndRestoreTableViewCell else { return UITableViewCell() }
             
+            cell.setup(text: buttonTitleList[indexPath.row])
+            
             return cell
             
         } else {
@@ -94,6 +99,16 @@ extension BackupAndRestoreViewController: UITableViewDelegate, UITableViewDataSo
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        
+        if indexPath.section == BackupAndRestore.backupAndRestore.rawValue {
+            guard let cell = tableView.cellForRow(at: indexPath) as? BackupAndRestoreTableViewCell else { return }
+            
+            if indexPath.row == 0 {
+                cell.startBackup()
+            } else {
+                cell.startRestore()
+            }
+        } else {
+            print("1 세션 클릭 됨")
+        }
     }
 }
