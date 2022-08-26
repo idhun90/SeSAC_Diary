@@ -121,11 +121,11 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
             let taskToDelete = tasks[indexPath.row]
             
             // 이미지가 없을 때 삭제하면 콘솔창 오류 문구 발생 -> 해결 필요
-            guard let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else { return }
-            let imageURL = documentDirectory.appendingPathComponent("\(taskToDelete.objectId).jpg")
+            guard let imageDirectoryURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent("이미지 폴더") else { return }
+            let imageURL = imageDirectoryURL.appendingPathComponent("\(taskToDelete.objectId).jpg")
             
             if FileManager.default.fileExists(atPath: imageURL.path) {
-                removeImageFromDocument(fileName: "\(taskToDelete.objectId).jpg") // 이미지도 함께 삭제, realms 보다 늦게 삭제되면 .objectId record가 바뀜. 오류 발생
+                removeImageFromImageDirectory(fileName: "\(taskToDelete.objectId).jpg") // 이미지도 함께 삭제, realms 보다 늦게 삭제되면 .objectId record가 바뀜. 오류 발생
                 print("삭제할 이미지가 존재합니다. 그리고 삭제됩니다.")
             } else {
                 print("삭제할 이미지가 존재하지 않습니다.")

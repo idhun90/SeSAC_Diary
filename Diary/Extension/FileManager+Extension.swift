@@ -34,9 +34,9 @@ extension UIViewController {
         }
     }
     
-    func removeImageFromDocument(fileName: String) {
-        guard let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else { return }
-        let fileURL = documentDirectory.appendingPathComponent(fileName)
+    func removeImageFromImageDirectory(fileName: String) {
+        guard let imageDirectoryURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent("이미지 폴더") else { return }
+        let fileURL = imageDirectoryURL.appendingPathComponent(fileName)
         
         do {
             try FileManager.default.removeItem(at: fileURL)
