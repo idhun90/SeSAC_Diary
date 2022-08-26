@@ -18,6 +18,8 @@ class HomeViewController: BaseViewController {
         super.viewDidLoad()
         navigationBarUI()
         savedDate()
+//        fetchDocumentZipFile()
+//        print(tasks)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -27,7 +29,7 @@ class HomeViewController: BaseViewController {
     }
     
     func savedDate() {
-        tasks = localRealm.objects(USerDiary.self).sorted(byKeyPath: "title", ascending: true)
+        tasks = localRealm.objects(USerDiary.self).sorted(byKeyPath: "createdDate", ascending: false)
     }
     
     func navigationBarUI() {
@@ -101,8 +103,6 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: HomeTableViewCell.reusebleIdentifier, for: indexPath) as? HomeTableViewCell else { return UITableViewCell() }
         
         cell.setData(data: tasks[indexPath.row])
-        //값전달: 프로토콜
-        cell.homeImageView.image = loadImageFromDocument(fileName: "\(tasks[indexPath.row].objectId).jpg")
         
         return cell
     }
@@ -117,7 +117,9 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             let taskToDelete = tasks[indexPath.row]
+            
             try! localRealm.write {
+                removeImageFromDocument(fileName: "\(taskToDelete.objectId).jpg") // 이미지도 함께 삭제, realms 보다 늦게 삭제되면 .objectId record가 바뀜. 오류 발생
                 localRealm.delete(taskToDelete)
                 mainView.tableView.reloadData()
             }
