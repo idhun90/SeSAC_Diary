@@ -7,10 +7,12 @@ extension UIViewController {
         return documentDirectory
     }
     
-    func saveImageToDocument(fileName: String, image: UIImage) {
+    func saveImageToImageDirectory(fileName: String, image: UIImage) {
         
-        guard let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else { return } // 도큐먼트 폴더 경로
-        let fileURL = documentDirectory.appendingPathComponent(fileName) // 이미지 저장 경로
+        creatDirectoryForSaveImage(fileName: "이미지 폴더")
+        
+        guard let imageDirectoryURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent("이미지 폴더") else { return } // 생성된 이미지 폴더 경로
+        let fileURL = imageDirectoryURL.appendingPathComponent(fileName) // 이미지 저장 경로
         guard let data = image.jpegData(compressionQuality: 0.5) else { return } // 원본이 아닌 압축 이미지가 필요할 때
         
         do {
@@ -40,6 +42,17 @@ extension UIViewController {
             try FileManager.default.removeItem(at: fileURL)
         } catch let error {
             print("이미지 제거 실패", error)
+        }
+    }
+    
+    func creatDirectoryForSaveImage(fileName: String) {
+        guard let documentDirectoryURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else { return }
+        let fileURL = documentDirectoryURL.appendingPathComponent(fileName)
+        
+        do {
+            try FileManager.default.createDirectory(at: fileURL, withIntermediateDirectories: false)
+        }catch let error {
+            print("이미지 저장 폴더 생성 실패", error)
         }
     }
     

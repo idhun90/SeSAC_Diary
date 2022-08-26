@@ -55,7 +55,7 @@ class MainViewController: BaseViewController {
         
         // 텍스트를 Realm에 저장하고 나서, 이미지는 Document에 저장
         if let image = mainView.photoImageView.image {
-            saveImageToDocument(fileName: "\(task.objectId).jpg", image: image)
+            saveImageToImageDirectory(fileName: "\(task.objectId).jpg", image: image)
             print("이미지 도큐먼트에 저장됨")
         } else {
             print("이미지 도큐먼트에 저장안됨")
