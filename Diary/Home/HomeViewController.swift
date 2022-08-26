@@ -8,7 +8,12 @@ class HomeViewController: BaseViewController {
     let mainView = HomeView()
     
     let localRealm = try! Realm()
-    var tasks: Results<USerDiary>! //didSet 구문 활용해보기
+    var tasks: Results<USerDiary>! {
+        didSet {
+            print(#function)
+            print("작동되라~~")
+        }
+    } //didSet 구문 활용해보기
     
     override func loadView() {
         self.view = mainView
@@ -18,8 +23,6 @@ class HomeViewController: BaseViewController {
         super.viewDidLoad()
         navigationBarUI()
         savedDate()
-//        fetchDocumentZipFile()
-//        print(tasks)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -64,14 +67,13 @@ class HomeViewController: BaseViewController {
         
         // 설정(백업 및 복원)
         let restoreAndbackup = UIAction(title: "백업 및 복원", image: UIImage(systemName: "arrow.counterclockwise.circle")) { _ in
-                // 새로운 페이지 이동
-                // 백업 버튼, 복원 버튼, 테이블 뷰 구성 필요
+            
             let vc = BackupAndRestoreViewController()
             self.transition(viewController: vc, transitionStyle: .presentNavigation)
-            }
+        }
         
         let restoreAndBackupMenu = UIMenu(options: .displayInline, children: [restoreAndbackup])
-            
+        
         let menu = UIMenu(title: "", options: .displayInline, children: [sortMenu, filterMenu, restoreAndBackupMenu])
         
         return menu
@@ -118,8 +120,18 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         if editingStyle == .delete {
             let taskToDelete = tasks[indexPath.row]
             
-            try! localRealm.write {
+            // 이미지가 없을 때 삭제하면 콘솔창 오류 문구 발생 -> 해결 필요
+            guard let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else { return }
+            let imageURL = documentDirectory.appendingPathComponent("\(taskToDelete.objectId).jpg")
+            
+            if FileManager.default.fileExists(atPath: imageURL.path) {
                 removeImageFromDocument(fileName: "\(taskToDelete.objectId).jpg") // 이미지도 함께 삭제, realms 보다 늦게 삭제되면 .objectId record가 바뀜. 오류 발생
+                print("삭제할 이미지가 존재합니다. 그리고 삭제됩니다.")
+            } else {
+                print("삭제할 이미지가 존재하지 않습니다.")
+            }
+            
+            try! localRealm.write {
                 localRealm.delete(taskToDelete)
                 mainView.tableView.reloadData()
             }

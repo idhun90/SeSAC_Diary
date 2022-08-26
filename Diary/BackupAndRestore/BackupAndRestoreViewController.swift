@@ -197,7 +197,7 @@ extension BackupAndRestoreViewController: UITableViewDelegate, UITableViewDataSo
             
             do {
                 try FileManager.default.removeItem(at: backupFileURL)
-                getBackupData() // 백업 리스트 배열 갱신 필요
+                getBackupData() // 백업 리스트 배열, 백업 리스트 테이블뷰 셀 갱신 필요
                 print("백업 파일 삭제됨")
             } catch let error {
                 print("백업 파일 삭제 실패", error)
