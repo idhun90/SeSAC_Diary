@@ -57,13 +57,14 @@ class HomeTableViewCell: BaseTableViewCell {
         titleLabel.text = data.title
         dateLabel.text = data.date.formatted()
         contentLabel.text = data.content
-        homeImageView.image = loadImageFromDocument(fileName: "\(data.objectId).jpg")
+        homeImageView.image = loadImageFromImageDirectory(fileName: "\(data.objectId).jpg")
         
     }
     
-    func loadImageFromDocument(fileName: String) -> UIImage? {
-        guard let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else { return nil } // 세부 경로 접근
-        let fileURL = documentDirectory.appendingPathComponent(fileName) // 이미지를 저장할 위치
+    func loadImageFromImageDirectory(fileName: String) -> UIImage? {
+        
+        guard let imageDirectoryURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent("이미지 폴더") else { return nil }
+        let fileURL = imageDirectoryURL.appendingPathComponent(fileName)
         
         if FileManager.default.fileExists(atPath: fileURL.path) { // 해당 경로에 실제 이미지 존재 유무 파악
             return UIImage(contentsOfFile: fileURL.path)

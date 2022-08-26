@@ -22,10 +22,10 @@ extension UIViewController {
         }
     }
     
-    func loadImageFromDocument(fileName: String) -> UIImage? {
+    func loadImageFromImageDirectory(fileName: String) -> UIImage? {
         
-        guard let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else { return nil }
-        let fileURL = documentDirectory.appendingPathComponent(fileName)
+        guard let imageDirectoryURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent("이미지 폴더") else { return nil }
+        let fileURL = imageDirectoryURL.appendingPathComponent(fileName)
         
         if FileManager.default.fileExists(atPath: fileURL.path) { // 해당 경로에 실제 이미지 존재 유무 파악
             return UIImage(contentsOfFile: fileURL.path)
