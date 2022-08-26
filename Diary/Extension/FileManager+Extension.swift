@@ -9,7 +9,13 @@ extension UIViewController {
     
     func saveImageToImageDirectory(fileName: String, image: UIImage) {
         
-        creatDirectoryForSaveImage(fileName: "이미지 폴더")
+        // 이미지 폴더가 존재하지 않을 때만 이미지 폴더를 생성할 수 있도록 조건 추가
+        guard let documentDirectoryURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else { return }
+        let imageFileURL = documentDirectoryURL.appendingPathComponent("이미지 폴더")
+        if !FileManager.default.fileExists(atPath: imageFileURL.path) {
+            creatDirectoryForSaveImage(fileName: "이미지 폴더")
+            print("이미지 폴더가 존재하지 않습니다, 이미지 폴더를 생성합니다.")
+        }
         
         guard let imageDirectoryURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent("이미지 폴더") else { return } // 생성된 이미지 폴더 경로
         let fileURL = imageDirectoryURL.appendingPathComponent(fileName) // 이미지 저장 경로
@@ -73,7 +79,7 @@ extension UIViewController {
             
             let backupData = zip.map { $0.lastPathComponent} // 디렉토리의 마지막 구성 요소 URL
             print("result: \(backupData)")
-        
+            
             // 백업 데이터가 여러개라면 날짜 순으로 정렬 후 반환 필요
             return backupData
             
