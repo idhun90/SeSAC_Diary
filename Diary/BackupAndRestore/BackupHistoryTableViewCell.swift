@@ -9,7 +9,7 @@ class BackupHistoryTableViewCell: BaseTableViewCell {
         view.backgroundColor = .clear
         view.font = .systemFont(ofSize: 15)
         view.textAlignment = .left
-        view.text = "테스트fvzgzdssdfdsfdsfdszfzsdfsdfdsfdszfdsfsdzfdszfdsfdsfdsfzsdfszdfdszfzsdfzdsfzsd"
+        
         return view
     }()
     
@@ -19,7 +19,7 @@ class BackupHistoryTableViewCell: BaseTableViewCell {
         view.font = .systemFont(ofSize: 15)
         view.textColor = .systemGray
         view.textAlignment = .center
-        view.text = "8888.08.88"
+
         return view
     }()
     
@@ -37,6 +37,11 @@ class BackupHistoryTableViewCell: BaseTableViewCell {
             self.contentView.addSubview($0)
         }
     }
+    
+    func setData(_ title: String) {
+        titleLabel.text = title
+    }
+    
     
     override func setConstaints() {
         let spacing = 20
