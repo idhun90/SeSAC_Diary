@@ -47,18 +47,18 @@ class MainViewController: BaseViewController {
         do {
             try localRealm.write {
                 localRealm.add(task)
-                print("Realm 저장 성공")
+                print("Realm에 데이터 정보 저장을 성공했습니다.")
             }
         } catch let error {
-            print("Realm 저장 실패", error)
+            print("Realm에 데이터 정보 저장을 실패했습니다.", error)
         }
         
         // 텍스트를 Realm에 저장하고 나서, 이미지는 Document에 저장
         if let image = mainView.photoImageView.image {
             saveImageToImageDirectory(fileName: "\(task.objectId).jpg", image: image)
-            print("이미지 도큐먼트에 저장됨")
+            print("이미지가 존재하며, 이미지 폴더에 저장되었습니다.")
         } else {
-            print("이미지 도큐먼트에 저장안됨")
+            print("이미지가 존재하지 않아, 이미지 폴더에 저장되지 않았습니다.")
         }
         
         unwind(unwindStyle: .dismiss)

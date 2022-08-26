@@ -11,7 +11,8 @@ class HomeViewController: BaseViewController {
     var tasks: Results<USerDiary>! {
         didSet {
             print(#function)
-            print("작동되라~~")
+            print("didSet 작동되라~~")
+            print("=======================")
         }
     } //didSet 구문 활용해보기
     
@@ -27,7 +28,7 @@ class HomeViewController: BaseViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        print(#function)
+        //print(#function)
         mainView.tableView.reloadData()
     }
     
@@ -126,9 +127,9 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
             
             if FileManager.default.fileExists(atPath: imageURL.path) {
                 removeImageFromImageDirectory(fileName: "\(taskToDelete.objectId).jpg") // 이미지도 함께 삭제, realms 보다 늦게 삭제되면 .objectId record가 바뀜. 오류 발생
-                print("삭제할 이미지가 존재합니다. 그리고 삭제됩니다.")
+                print("삭제할 이미지가 존재합니다. 데이터와 함께 삭제됩니다.")
             } else {
-                print("삭제할 이미지가 존재하지 않습니다.")
+                print("삭제할 이미지가 존재하지 않습니다. 데이터만 삭제됩니다.")
             }
             
             try! localRealm.write {
