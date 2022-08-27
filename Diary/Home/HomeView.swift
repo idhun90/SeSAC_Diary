@@ -22,6 +22,7 @@ class HomeView: BaseView {
         view.appearance.titleWeekendColor = .systemRed // 주말 날짜 텍스트 색상 변경
         view.appearance.selectionColor = .black
         view.appearance.todayColor = .systemRed
+        view.appearance.eventDefaultColor = .systemGray4
         view.appearance.headerMinimumDissolvedAlpha = 0.0 // 양 옆 이전 월, 다음 월 표기 없애기
         view.scrollDirection = .vertical
         return view

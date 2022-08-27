@@ -70,7 +70,7 @@ class MainViewController: BaseViewController {
     
     override func configure() {
         mainView.choiceButton.addTarget(self, action: #selector(clickedChoiceButton), for: .touchUpInside)
-        print(#function)
+        print(#function, String(describing: MainViewController.self))
     }
     
     @objc func clickedChoiceButton() {
@@ -79,6 +79,7 @@ class MainViewController: BaseViewController {
     }
     
     func setupUIMenu() {
+        print(#function)
         var childeren: [UIAction] {
             
             let search = UIAction(title: "검색", image: UIImage(systemName: "magnifyingglass")) { _ in

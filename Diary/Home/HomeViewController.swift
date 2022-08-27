@@ -24,18 +24,27 @@ class HomeViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationBarUI()
-        savedDate()
+//        todayDiary()
         print("Realms 파일 위치:", localRealm.configuration.fileURL!)
         print("=============================================================")
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        //print(#function)
+        print(#function)
+        renewDate()
+        mainView.calendar.reloadData()
         mainView.tableView.reloadData()
+        
     }
     
-    func savedDate() {
+    func todayDiary() {
+        tasks = localRealm.objects(USerDiary.self).filter("createdDate >= %@ AND createdDate < %@", Data(), Date(timeInterval: 24*60*60, since: Date()))
+        self.mainView.tableView.reloadData()
+    }
+    
+    func renewDate() {
+        print(#function)
         tasks = localRealm.objects(USerDiary.self).sorted(byKeyPath: "createdDate", ascending: false)
     }
     
@@ -84,8 +93,10 @@ class HomeViewController: BaseViewController {
     }
     
     @objc func plusButtonClicked() {
+        print(#function, String(describing: HomeViewController.self))
         let vc = MainViewController()
         transition(viewController: vc, transitionStyle: .presentFullScreen)
+        
     }
     
     override func configure() {
@@ -102,13 +113,21 @@ extension HomeViewController: FSCalendarDelegate, FSCalendarDataSource {
     
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
         //print("선택한 날짜는 \(date)입니다.") // 기존 포멧 체크용
-        print("선택한 날짜는 \(self.mainView.formatter.string(from: date))입니다.")
+        //print("선택한 날짜는 \(self.mainView.formatter.string(from: date))입니다.")
+        tasks = localRealm.objects(USerDiary.self).filter("createdDate >= %@ AND createdDate < %@", date, Date(timeInterval: 24*60*60, since: date))
+        self.mainView.tableView.reloadData()
+        //self.mainView.calendar.reloadData() // 캘린더를 리로드하면 특정 날짜를 아주 빠르게 클릭하는 애니메이션 효과가 생김, 리로드 할 필요는 없는 듯.
+        //테이블뷰, 캘린더 갱신 필요?
     }
     
     func calendar(_ calendar: FSCalendar, subtitleFor date: Date) -> String? {
         return self.mainView.formatter.string(from: date) == "20220908" ? "애플 키노트" : nil
     }
     
+    func calendar(_ calendar: FSCalendar, numberOfEventsFor date: Date) -> Int {
+        let numberOfEvents = localRealm.objects(USerDiary.self).filter("createdDate >= %@ AND createdDate < %@", date, Date(timeInterval: 24*60*60, since: date))
+        return numberOfEvents.count
+    }
 }
 
 extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
@@ -140,7 +159,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         if editingStyle == .delete {
             let taskToDelete = tasks[indexPath.row]
             
-            // 이미지가 없을 때 삭제하면 콘솔창 오류 문구 발생 -> 해결 필요
+            // 이미지가 없을 때 삭제하면 콘솔창 오류 문구 발생 -> 조건문 추가 해결
             guard let imageDirectoryURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent("이미지 폴더") else { return }
             let imageURL = imageDirectoryURL.appendingPathComponent("\(taskToDelete.objectId).jpg")
             
@@ -154,6 +173,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
             try! localRealm.write {
                 localRealm.delete(taskToDelete)
                 mainView.tableView.reloadData()
+                mainView.calendar.reloadData()
             }
         }
     }
