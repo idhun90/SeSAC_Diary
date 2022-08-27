@@ -2,6 +2,7 @@ import UIKit
 
 import RealmSwift
 import Accelerate
+import FSCalendar
 
 class HomeViewController: BaseViewController {
     
@@ -24,6 +25,8 @@ class HomeViewController: BaseViewController {
         super.viewDidLoad()
         navigationBarUI()
         savedDate()
+        print("Realms 파일 위치:", localRealm.configuration.fileURL!)
+        print("=============================================================")
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -38,7 +41,7 @@ class HomeViewController: BaseViewController {
     
     func navigationBarUI() {
         title = "일기장"
-        navigationController?.navigationBar.prefersLargeTitles = true
+        navigationController?.navigationBar.prefersLargeTitles = false // 캘린더 추가로 비활성화. 스크롤 문제 생김
         let plusButton = UIBarButtonItem(image: UIImage(systemName: "plus"), style: .plain, target: self, action: #selector(plusButtonClicked))
         let optionButton = UIBarButtonItem(title: nil, image: UIImage(systemName: "ellipsis.circle"), primaryAction: nil, menu: setupUIMenu())
         navigationItem.rightBarButtonItems = [plusButton, optionButton]
@@ -89,7 +92,23 @@ class HomeViewController: BaseViewController {
         self.mainView.tableView.delegate = self
         self.mainView.tableView.dataSource = self
         self.mainView.tableView.register(HomeTableViewCell.self, forCellReuseIdentifier: HomeTableViewCell.reusebleIdentifier)
+        
+        self.mainView.calendar.delegate = self
+        self.mainView.calendar.dataSource = self
     }
+}
+
+extension HomeViewController: FSCalendarDelegate, FSCalendarDataSource {
+    
+    func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
+        //print("선택한 날짜는 \(date)입니다.") // 기존 포멧 체크용
+        print("선택한 날짜는 \(self.mainView.formatter.string(from: date))입니다.")
+    }
+    
+    func calendar(_ calendar: FSCalendar, subtitleFor date: Date) -> String? {
+        return self.mainView.formatter.string(from: date) == "20220908" ? "애플 키노트" : nil
+    }
+    
 }
 
 extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
