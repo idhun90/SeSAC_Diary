@@ -8,14 +8,14 @@ protocol UserDiaryRealmRepositoryType { // 프로토콜로 메소드 미리 명�
     func fetchRealm() -> Results<USerDiary>
     func fetchRealmDate(date: Date) -> Results<USerDiary>
     func fetchRealmSort(sort: String, ascending: Bool) -> Results<USerDiary>
-    func fetchRealmFilter()
+    func fetchRealmFilterTextContainTitleOrContent(text: String) -> Results<USerDiary>
     func fetchAddRealmItem(item: USerDiary)
     func fetchDeleteRealmItem(item: USerDiary)
     
 }
 
 class UserDiaryRealmRepository: UserDiaryRealmRepositoryType {
-    
+
     let localRealm = try! Realm()
     
     func fetchRealmPath() -> URL {
@@ -57,8 +57,8 @@ class UserDiaryRealmRepository: UserDiaryRealmRepositoryType {
         return localRealm.objects(USerDiary.self).sorted(byKeyPath: sort, ascending: ascending)
     }
     
-    func fetchRealmFilter() {
-        
+    func fetchRealmFilterTextContainTitleOrContent(text: String) -> Results<USerDiary> {
+        return localRealm.objects(USerDiary.self).filter("title CONTAINS[c] '\(text)' OR content CONTAINS[c] '\(text)'")
     }
     
     func fetchAddRealmItem(item: USerDiary) {

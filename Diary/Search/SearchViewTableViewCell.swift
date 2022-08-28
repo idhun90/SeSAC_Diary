@@ -75,4 +75,23 @@ class SearchViewTableViewCell: BaseTableViewCell {
             $0.top.bottom.equalTo(self.searchImageView)
         }
     }
+    
+    func setData(data: USerDiary) {
+        titleLabel.text = data.title
+        dateLabel.text = data.date.formatted()
+        contentLabel.text = data.content
+        searchImageView.image = loadImageFromImageDirectory(fileName: "\(data.objectId).jpg")
+    }
+    
+    func loadImageFromImageDirectory(fileName: String) -> UIImage? {
+        
+        guard let imageDirectoryURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent("이미지 폴더") else { return nil }
+        let fileURL = imageDirectoryURL.appendingPathComponent(fileName)
+        
+        if FileManager.default.fileExists(atPath: fileURL.path) { // 해당 경로에 실제 이미지 존재 유무 파악
+            return UIImage(contentsOfFile: fileURL.path)
+        } else {
+            return UIImage(systemName: "star.fill")
+        }
+    }
 }

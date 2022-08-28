@@ -1,16 +1,15 @@
 import UIKit
 
+import RealmSwift
+
 class SearchViewController: BaseViewController {
     
     let mainView = SearchView()
     
-    let searchBar: UISearchController = {
-        let view = UISearchController(searchResultsController: nil)
-        view.searchBar.placeholder = "일기 검색"
-        view.hidesNavigationBarDuringPresentation = true // searchBar를 탭하여 활성화 됐을 때 타이틀 유지하기, true = 없어짐 (공백 없어져서 이게 좋은 듯)
-        return view
-    }()
+    let repository = UserDiaryRealmRepository()
     
+    var searchResult: Results<USerDiary>!
+        
     override func loadView() {
         self.view = mainView
     }
@@ -25,10 +24,23 @@ class SearchViewController: BaseViewController {
         
         navigationItem.title = "검색"
         navigationController?.navigationBar.prefersLargeTitles = true
-        self.navigationItem.searchController = searchBar
+        self.navigationItem.searchController = self.mainView.searchBar
         self.navigationItem.hidesSearchBarWhenScrolling = false // 스크롤할 때 searchBar 고정여부, false = 고정
+        
+        self.mainView.searchBar.searchResultsUpdater = self
     }
     
+}
+
+extension SearchViewController: UISearchResultsUpdating {
+    func updateSearchResults(for searchController: UISearchController) {
+        print(searchController.searchBar.text!)
+        guard let text = searchController.searchBar.text else { return }
+        let result = repository.fetchRealmFilterTextContainTitleOrContent(text: text)
+        print(result)
+        searchResult = result
+        self.mainView.tableView.reloadData()
+    }
 }
 
 extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
@@ -37,11 +49,13 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return searchResult == nil ? 0 : searchResult.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: SearchViewTableViewCell.reusebleIdentifier, for: indexPath) as? SearchViewTableViewCell else { return UITableViewCell() }
+        
+        cell.setData(data: searchResult[indexPath.row])
         
         return cell
     }
