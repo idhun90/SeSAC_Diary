@@ -32,22 +32,23 @@ class UserDiaryRealmRepository: UserDiaryRealmRepositoryType {
     
     func fetchRealmTodayDate() -> Results<USerDiary> {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        dateFormatter.dateFormat = "yyyy-MM-dd"
         dateFormatter.locale = Locale(identifier: "ko_KR")
         
         let date = Date()
         print("현재 시간: \(date)")
         let stringDate = dateFormatter.string(from: date)
         print("stringDate: \(stringDate)")
-        let newDate = dateFormatter.date(from: stringDate)! // 왜 다시 한국시간이 아닌걸까
+        let newDate = dateFormatter.date(from: stringDate)! // 왜 다시 한국시간이 아닌걸까, date 타입은 포멧 적용이 안 되는 듯
         print("newDate: \(newDate)")
         
         let calendar = Calendar.current
         let yesterday = calendar.date(byAdding: .day, value: -1, to: newDate)!
-        print("어제 시간: \(yesterday)")
+        print("어제 시간: \(dateFormatter.string(from: yesterday))")
         let tomorrow = calendar.date(byAdding: .day, value: 1, to: newDate)!
         print("내일 시간: \(tomorrow)")
-        let created = localRealm.objects(USerDiary.self).filter("createdDate >= %@ AND createdDate < %@", yesterday, tomorrow).sorted(byKeyPath: "createdDate", ascending: false)
+        let created = localRealm.objects(USerDiary.self).filter("createdDate BETWEEN {%@, %@}", yesterday, tomorrow).sorted(byKeyPath: "createdDate", ascending: false)
+        
         print(created)
         
         return created
@@ -58,7 +59,7 @@ class UserDiaryRealmRepository: UserDiaryRealmRepositoryType {
     }
     
     func fetchRealmFilterTextContainTitleOrContent(text: String) -> Results<USerDiary> {
-        return localRealm.objects(USerDiary.self).filter("title CONTAINS[c] '\(text)' OR content CONTAINS[c] '\(text)'")
+        return localRealm.objects(USerDiary.self).filter("title CONTAINS[c] '\(text)' OR content CONTAINS[c] '\(text)'").sorted(byKeyPath: "createdDate", ascending: false)
     }
     
     func fetchAddRealmItem(item: USerDiary) {
