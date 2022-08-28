@@ -28,6 +28,7 @@ class BackupAndRestoreViewController: BaseViewController {
     }
     
     override func viewDidLoad() {
+        print(#function, String(describing: BackupAndRestoreViewController.self))
         super.viewDidLoad()
         navigationUI()
         getBackupData()

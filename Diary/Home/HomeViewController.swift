@@ -23,9 +23,10 @@ class HomeViewController: BaseViewController {
     }
     
     override func viewDidLoad() {
+        print(#function)
         super.viewDidLoad()
         navigationBarUI()
-        //        todayDiary()
+        todayDiary()
         print("Realms 파일 위치:", repository.fetchRealmPath())
         print("=============================================================")
     }
@@ -33,7 +34,7 @@ class HomeViewController: BaseViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         print(#function)
-        renewDate()
+//        renewDate()
         mainView.calendar.reloadData()
         mainView.tableView.reloadData()
         //print("지금 시간 \(Date().formatted())")
@@ -48,17 +49,18 @@ class HomeViewController: BaseViewController {
     // 현재 날짜로 리스트 보여주기
     func todayDiary() {
         print(#function)
-        tasks = repository.fetchRealmDate(date: Date())
+        tasks = repository.fetchRealmTodayDate()
+        print(tasks!)
         self.mainView.tableView.reloadData()
     }
     
     func navigationBarUI() {
-        //        title = "일기장" // 네비게이션, 탭바 타이틀이 같은 값으로 설정된다.
+        //title = "일기장" // 네비게이션, 탭바 타이틀이 같은 값으로 설정된다.
         navigationItem.title = "일기장"
         navigationController?.navigationBar.prefersLargeTitles = false // 캘린더 추가로 비활성화. 스크롤 문제 생김
-        let plusButton = UIBarButtonItem(image: UIImage(systemName: "square.and.pencil"), style: .plain, target: self, action: #selector(plusButtonClicked))
+        let writeButton = UIBarButtonItem(image: UIImage(systemName: "square.and.pencil"), style: .plain, target: self, action: #selector(writeButtonClicked))
         let optionButton = UIBarButtonItem(title: nil, image: UIImage(systemName: "slider.horizontal.3"/*ellipsis.circle*/), primaryAction: nil, menu: setupUIMenu())
-        navigationItem.rightBarButtonItems = [plusButton, optionButton]
+        navigationItem.rightBarButtonItems = [writeButton, optionButton]
     }
     
     func setupUIMenu() -> UIMenu {
@@ -102,7 +104,7 @@ class HomeViewController: BaseViewController {
         return menu
     }
     
-    @objc func plusButtonClicked() {
+    @objc func writeButtonClicked() {
         print(#function, String(describing: HomeViewController.self))
         let vc = MainViewController()
         transition(viewController: vc, transitionStyle: .presentFullScreen)
@@ -122,8 +124,8 @@ class HomeViewController: BaseViewController {
 extension HomeViewController: FSCalendarDelegate, FSCalendarDataSource {
     
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
-        //print("선택한 날짜는 \(date)입니다.") // 기존 포멧 체크용
-        //print("선택한 날짜는 \(self.mainView.formatter.string(from: date))입니다.")
+        print("선택한 날짜는 \(date)입니다.") // 기존 포멧 체크용
+        print("선택한 날짜는 \(self.mainView.formatter.string(from: date))입니다.")
         tasks = repository.fetchRealmDate(date: date)
         self.mainView.tableView.reloadData()
         //self.mainView.calendar.reloadData() // 캘린더를 리로드하면 특정 날짜를 아주 빠르게 클릭하는 애니메이션 효과가 생김, 리로드 할 필요는 없는 듯.

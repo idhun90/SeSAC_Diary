@@ -23,11 +23,20 @@ class UserDiaryRealmRepository: UserDiaryRealmRepositoryType {
     }
     
     func fetchRealm() -> Results<USerDiary> {
-        return localRealm.objects(USerDiary.self).sorted(byKeyPath: "createDate", ascending: false)
+        return localRealm.objects(USerDiary.self).sorted(byKeyPath: "createdDate", ascending: false)
     }
     
     func fetchRealmDate(date: Date) -> Results<USerDiary> {
-        return localRealm.objects(USerDiary.self).filter("createdDate >= %@ AND createdDate < %@", date, Date(timeInterval: 24*60*60, since: date))
+        return localRealm.objects(USerDiary.self).filter("createdDate >= %@ AND createdDate < %@", date, Date(timeInterval: 24*60*60, since: date)).sorted(byKeyPath: "createdDate", ascending: false)
+    }
+    
+    func fetchRealmTodayDate() -> Results<USerDiary> {
+        let calendar = Calendar.current
+        let yesterday = calendar.date(byAdding: .day, value: -1, to: Date())!
+        let tomorrow = calendar.date(byAdding: .day, value: 1, to: Date())!
+        let created = localRealm.objects(USerDiary.self).filter("createdDate >= %@ AND createdDate < %@", yesterday, tomorrow).sorted(byKeyPath: "createdDate", ascending: false)
+        
+        return created
     }
     
     func fetchRealmSort(sort: String, ascending: Bool) -> Results<USerDiary> {

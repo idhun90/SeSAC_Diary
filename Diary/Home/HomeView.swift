@@ -22,9 +22,11 @@ class HomeView: BaseView {
         view.appearance.titleWeekendColor = .systemRed // 주말 날짜 텍스트 색상 변경
         view.appearance.selectionColor = .black
         view.appearance.todayColor = .systemRed
-        view.appearance.eventDefaultColor = .systemGray4
+        view.appearance.eventDefaultColor = .systemGray
         view.appearance.headerMinimumDissolvedAlpha = 0.0 // 양 옆 이전 월, 다음 월 표기 없애기
+        view.appearance.subtitleOffset = CGPoint(x: 0, y: 5)
         view.scrollDirection = .vertical
+        view.placeholderType = .none // 달에 유효하지 않은 날찌 제거
         return view
     }()
     

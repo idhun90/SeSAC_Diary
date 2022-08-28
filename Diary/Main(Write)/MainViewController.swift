@@ -21,6 +21,7 @@ class MainViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        print(#function, String(describing: MainViewController.self))
         navigationBarUI()
         setupUIMenu()
     }

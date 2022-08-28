@@ -9,7 +9,7 @@ class TabBarViewController: UITabBarController {
         configureTabBarController()
         setupTabBarAppearence()
         print(self.tabBar.frame.height)
-        
+
     }
     
     func configureTabBarController() {
