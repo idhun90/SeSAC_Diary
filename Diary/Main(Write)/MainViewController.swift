@@ -13,7 +13,7 @@ class MainViewController: BaseViewController {
     
     var mainView = MainView()
     
-    let localRealm = try! Realm()
+    let repository = UserDiaryRealmRepository()
     
     override func loadView() {
         self.view = mainView
@@ -42,16 +42,8 @@ class MainViewController: BaseViewController {
         }
         
         let task = USerDiary(title: title, content: self.mainView.mainTextView.text!, date: Date(), createdDate: Date(), photo: nil)
-        
-        // try! 보다는 try do catch 구문 권장
-        do {
-            try localRealm.write {
-                localRealm.add(task)
-                print("Realm에 데이터 정보 저장을 성공했습니다.")
-            }
-        } catch let error {
-            print("Realm에 데이터 정보 저장을 실패했습니다.", error)
-        }
+       
+        repository.fetchAddRealmItem(item: task)
         
         // 텍스트를 Realm에 저장하고 나서, 이미지는 Document에 저장
         if let image = mainView.photoImageView.image {

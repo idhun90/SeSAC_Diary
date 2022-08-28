@@ -15,8 +15,6 @@ class SecondViewController: BaseViewController {
     private let totalPage = 334 // 한페이지에 30개 불러올 때 기준
     private var unsplashimage: [UnsplashData] = []
     
-    
-    
     var selectedImageUrl: String?
     var dataHandler: (() -> ())?
     

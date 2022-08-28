@@ -8,7 +8,8 @@ class HomeViewController: BaseViewController {
     
     let mainView = HomeView()
     
-    let localRealm = try! Realm()
+    let repository = UserDiaryRealmRepository()
+    
     var tasks: Results<USerDiary>! {
         didSet {
             print(#function)
@@ -24,8 +25,8 @@ class HomeViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationBarUI()
-//        todayDiary()
-        print("Realms 파일 위치:", localRealm.configuration.fileURL!)
+        //        todayDiary()
+        print("Realms 파일 위치:", repository.fetchRealmPath())
         print("=============================================================")
     }
     
@@ -39,20 +40,20 @@ class HomeViewController: BaseViewController {
         
     }
     
+    func renewDate() {
+        print(#function)
+        tasks = repository.fetchRealm()
+    }
+    
     // 현재 날짜로 리스트 보여주기
     func todayDiary() {
         print(#function)
-        tasks = localRealm.objects(USerDiary.self).filter("createdDate >= %@ AND createdDate < %@", Data(), Date(timeInterval: 24*60*60, since: Date()))
+        tasks = repository.fetchRealmDate(date: Date())
         self.mainView.tableView.reloadData()
     }
     
-    func renewDate() {
-        print(#function)
-        tasks = localRealm.objects(USerDiary.self).sorted(byKeyPath: "createdDate", ascending: false)
-    }
-    
     func navigationBarUI() {
-//        title = "일기장" // 네비게이션, 탭바 타이틀이 같은 값으로 설정된다.
+        //        title = "일기장" // 네비게이션, 탭바 타이틀이 같은 값으로 설정된다.
         navigationItem.title = "일기장"
         navigationController?.navigationBar.prefersLargeTitles = false // 캘린더 추가로 비활성화. 스크롤 문제 생김
         let plusButton = UIBarButtonItem(image: UIImage(systemName: "square.and.pencil"), style: .plain, target: self, action: #selector(plusButtonClicked))
@@ -64,7 +65,12 @@ class HomeViewController: BaseViewController {
         
         // 정렬
         var sortChildren: [UIAction] {
-            let title = UIAction(title: "제목") { _ in }
+            let title = UIAction(title: "제목") { _ in
+                self.tasks = self.repository.fetchRealmSort(sort: "title", ascending: true)
+                self.mainView.tableView.reloadData()
+                // 이렇게 할 경우 선택한 날짜에 보여지는 리스트들이 달라짐. 조건문을 여러 개 만들어야하나?
+                // 렘 코드 분리 후 다시 도전
+            }
             let date = UIAction(title: "생성일") { _ in }
             
             return [title, date]
@@ -83,13 +89,13 @@ class HomeViewController: BaseViewController {
         let filterMenu = UIMenu(title: "필터", image: UIImage(systemName: "line.3.horizontal.decrease.circle"), options: .singleSelection, children: filterChildren)
         
         // 설정(백업 및 복원) 0828 탭바 추가로 기능 비활성화
-//        let restoreAndbackup = UIAction(title: "백업 및 복원", image: UIImage(systemName: "arrow.counterclockwise.circle")) { _ in
-//
-//            let vc = BackupAndRestoreViewController()
-//            self.transition(viewController: vc, transitionStyle: .presentNavigation)
-//        }
-//
-//        let restoreAndBackupMenu = UIMenu(options: .displayInline, children: [restoreAndbackup])
+        //        let restoreAndbackup = UIAction(title: "백업 및 복원", image: UIImage(systemName: "arrow.counterclockwise.circle")) { _ in
+        //
+        //            let vc = BackupAndRestoreViewController()
+        //            self.transition(viewController: vc, transitionStyle: .presentNavigation)
+        //        }
+        //
+        //        let restoreAndBackupMenu = UIMenu(options: .displayInline, children: [restoreAndbackup])
         
         let menu = UIMenu(title: "", options: .displayInline, children: [sortMenu, filterMenu/*, restoreAndBackupMenu*/])
         
@@ -118,7 +124,7 @@ extension HomeViewController: FSCalendarDelegate, FSCalendarDataSource {
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
         //print("선택한 날짜는 \(date)입니다.") // 기존 포멧 체크용
         //print("선택한 날짜는 \(self.mainView.formatter.string(from: date))입니다.")
-        tasks = localRealm.objects(USerDiary.self).filter("createdDate >= %@ AND createdDate < %@", date, Date(timeInterval: 24*60*60, since: date))
+        tasks = repository.fetchRealmDate(date: date)
         self.mainView.tableView.reloadData()
         //self.mainView.calendar.reloadData() // 캘린더를 리로드하면 특정 날짜를 아주 빠르게 클릭하는 애니메이션 효과가 생김, 리로드 할 필요는 없는 듯.
         //테이블뷰, 캘린더 갱신 필요?
@@ -129,7 +135,7 @@ extension HomeViewController: FSCalendarDelegate, FSCalendarDataSource {
     }
     
     func calendar(_ calendar: FSCalendar, numberOfEventsFor date: Date) -> Int {
-        let numberOfEvents = localRealm.objects(USerDiary.self).filter("createdDate >= %@ AND createdDate < %@", date, Date(timeInterval: 24*60*60, since: date))
+        let numberOfEvents = repository.fetchRealmDate(date: date)
         return numberOfEvents.count
     }
 }
@@ -174,11 +180,9 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
                 print("삭제할 이미지가 존재하지 않습니다. 데이터만 삭제됩니다.")
             }
             
-            try! localRealm.write {
-                localRealm.delete(taskToDelete)
-                mainView.tableView.reloadData()
-                mainView.calendar.reloadData()
-            }
+            repository.fetchDeleteRealmItem(item: taskToDelete)
+            mainView.tableView.reloadData()
+            mainView.calendar.reloadData()
         }
     }
 }
