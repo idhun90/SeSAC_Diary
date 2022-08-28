@@ -39,13 +39,14 @@ class BackupAndRestoreViewController: BaseViewController {
     }
     
     func navigationUI() {
-        title = "설정"
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "닫기", style: .plain, target: self, action: #selector(cancelButtonClicked))
+        //title = "설정2" // 네비게이션, 탭바 타이틀이 같은 값으로 설정된다.
+        navigationItem.title = "설정"
+        //navigationItem.leftBarButtonItem = UIBarButtonItem(title: "닫기", style: .plain, target: self, action: #selector(cancelButtonClicked)) // 탭바 추가로 비활성화
     }
     
-    @objc func cancelButtonClicked() {
-        self.unwind(unwindStyle: .dismiss)
-    }
+    //@objc func cancelButtonClicked() { // 탭바 추가로 비활성화
+        //self.unwind(unwindStyle: .dismiss)
+    //}
     
     func getBackupData() {
         guard let backup = fetchDocumentZipFile() else {

@@ -35,10 +35,13 @@ class HomeViewController: BaseViewController {
         renewDate()
         mainView.calendar.reloadData()
         mainView.tableView.reloadData()
+        //print("지금 시간 \(Date().formatted())")
         
     }
     
+    // 현재 날짜로 리스트 보여주기
     func todayDiary() {
+        print(#function)
         tasks = localRealm.objects(USerDiary.self).filter("createdDate >= %@ AND createdDate < %@", Data(), Date(timeInterval: 24*60*60, since: Date()))
         self.mainView.tableView.reloadData()
     }
@@ -49,10 +52,11 @@ class HomeViewController: BaseViewController {
     }
     
     func navigationBarUI() {
-        title = "일기장"
+//        title = "일기장" // 네비게이션, 탭바 타이틀이 같은 값으로 설정된다.
+        navigationItem.title = "일기장"
         navigationController?.navigationBar.prefersLargeTitles = false // 캘린더 추가로 비활성화. 스크롤 문제 생김
-        let plusButton = UIBarButtonItem(image: UIImage(systemName: "plus"), style: .plain, target: self, action: #selector(plusButtonClicked))
-        let optionButton = UIBarButtonItem(title: nil, image: UIImage(systemName: "ellipsis.circle"), primaryAction: nil, menu: setupUIMenu())
+        let plusButton = UIBarButtonItem(image: UIImage(systemName: "square.and.pencil"), style: .plain, target: self, action: #selector(plusButtonClicked))
+        let optionButton = UIBarButtonItem(title: nil, image: UIImage(systemName: "slider.horizontal.3"/*ellipsis.circle*/), primaryAction: nil, menu: setupUIMenu())
         navigationItem.rightBarButtonItems = [plusButton, optionButton]
     }
     
@@ -78,16 +82,16 @@ class HomeViewController: BaseViewController {
         
         let filterMenu = UIMenu(title: "필터", image: UIImage(systemName: "line.3.horizontal.decrease.circle"), options: .singleSelection, children: filterChildren)
         
-        // 설정(백업 및 복원)
-        let restoreAndbackup = UIAction(title: "백업 및 복원", image: UIImage(systemName: "arrow.counterclockwise.circle")) { _ in
-            
-            let vc = BackupAndRestoreViewController()
-            self.transition(viewController: vc, transitionStyle: .presentNavigation)
-        }
+        // 설정(백업 및 복원) 0828 탭바 추가로 기능 비활성화
+//        let restoreAndbackup = UIAction(title: "백업 및 복원", image: UIImage(systemName: "arrow.counterclockwise.circle")) { _ in
+//
+//            let vc = BackupAndRestoreViewController()
+//            self.transition(viewController: vc, transitionStyle: .presentNavigation)
+//        }
+//
+//        let restoreAndBackupMenu = UIMenu(options: .displayInline, children: [restoreAndbackup])
         
-        let restoreAndBackupMenu = UIMenu(options: .displayInline, children: [restoreAndbackup])
-        
-        let menu = UIMenu(title: "", options: .displayInline, children: [sortMenu, filterMenu, restoreAndBackupMenu])
+        let menu = UIMenu(title: "", options: .displayInline, children: [sortMenu, filterMenu/*, restoreAndBackupMenu*/])
         
         return menu
     }

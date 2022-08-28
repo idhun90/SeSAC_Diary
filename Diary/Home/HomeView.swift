@@ -6,7 +6,7 @@ import FSCalendar
 class HomeView: BaseView {
     
     let tableView: UITableView = {
-        let view = UITableView(frame: .zero, style: .insetGrouped)
+        let view = UITableView(frame: .zero, style: .plain)
         view.backgroundColor = .systemGray6
         return view
     }()

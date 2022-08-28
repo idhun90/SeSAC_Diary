@@ -21,6 +21,7 @@
 		1421620628B1FA6600BB9D50 /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1421620528B1FA6600BB9D50 /* APIManager.swift */; };
 		1421620828B1FAB800BB9D50 /* EndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1421620728B1FAB800BB9D50 /* EndPoint.swift */; };
 		1421620B28B2102900BB9D50 /* UnsplashData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1421620A28B2102900BB9D50 /* UnsplashData.swift */; };
+		1428D57328BB4AEB00DDE125 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1428D57228BB4AEB00DDE125 /* TabBarViewController.swift */; };
 		143AEAB528B5441700AB1A21 /* UIViewController + Extention.swift in Sources */ = {isa = PBXBuildFile; fileRef = 143AEAB428B5441700AB1A21 /* UIViewController + Extention.swift */; };
 		146042F828B7016500829468 /* Zip in Frameworks */ = {isa = PBXBuildFile; productRef = 146042F728B7016500829468 /* Zip */; };
 		1495E94728BA47DE00393EB0 /* FSCalendar in Frameworks */ = {isa = PBXBuildFile; productRef = 1495E94628BA47DE00393EB0 /* FSCalendar */; };
@@ -60,6 +61,7 @@
 		1421620528B1FA6600BB9D50 /* APIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIManager.swift; sourceTree = "<group>"; };
 		1421620728B1FAB800BB9D50 /* EndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndPoint.swift; sourceTree = "<group>"; };
 		1421620A28B2102900BB9D50 /* UnsplashData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnsplashData.swift; sourceTree = "<group>"; };
+		1428D57228BB4AEB00DDE125 /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		143AEAB428B5441700AB1A21 /* UIViewController + Extention.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController + Extention.swift"; sourceTree = "<group>"; };
 		14A6511928B1319B0098CAC4 /* Diary.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Diary.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		14A6511C28B1319B0098CAC4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -133,6 +135,14 @@
 			path = Data;
 			sourceTree = "<group>";
 		};
+		1428D56F28BB467D00DDE125 /* TabBar */ = {
+			isa = PBXGroup;
+			children = (
+				1428D57228BB4AEB00DDE125 /* TabBarViewController.swift */,
+			);
+			path = TabBar;
+			sourceTree = "<group>";
+		};
 		143AEAB328B541F700AB1A21 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
@@ -161,6 +171,7 @@
 		14A6511B28B1319B0098CAC4 /* Diary */ = {
 			isa = PBXGroup;
 			children = (
+				1428D56F28BB467D00DDE125 /* TabBar */,
 				14CADA2128B3EC41005D5912 /* Realm */,
 				1421620928B2100900BB9D50 /* Data */,
 				14A6514128B141E80098CAC4 /* Constant */,
@@ -363,6 +374,7 @@
 				14A6511F28B1319B0098CAC4 /* SceneDelegate.swift in Sources */,
 				1421620628B1FA6600BB9D50 /* APIManager.swift in Sources */,
 				14A6514628B1448E0098CAC4 /* SecondViewController.swift in Sources */,
+				1428D57328BB4AEB00DDE125 /* TabBarViewController.swift in Sources */,
 				14A6513528B135260098CAC4 /* MainViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
