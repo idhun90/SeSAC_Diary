@@ -7,7 +7,8 @@ class HomeView: BaseView {
     
     let tableView: UITableView = {
         let view = UITableView(frame: .zero, style: .plain)
-        view.backgroundColor = .systemGray6
+        //view.backgroundColor = .systemGray6
+        view.backgroundColor = .white
         return view
     }()
     
@@ -25,6 +26,7 @@ class HomeView: BaseView {
         view.appearance.eventDefaultColor = .systemGray
         view.appearance.headerMinimumDissolvedAlpha = 0.0 // 양 옆 이전 월, 다음 월 표기 없애기
         view.appearance.subtitleOffset = CGPoint(x: 0, y: 5)
+        view.appearance.borderRadius = 0.5
         view.scrollDirection = .vertical
         view.placeholderType = .none // 달에 유효하지 않은 날찌 제거
         return view
@@ -51,7 +53,8 @@ class HomeView: BaseView {
     override func configure() {
         self.addSubview(tableView)
         self.addSubview(calendar)
-        self.backgroundColor = .systemGray6
+//        self.backgroundColor = .systemGray6
+        self.backgroundColor = .systemBackground
     }
     
     override func setConstaints() {

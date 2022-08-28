@@ -42,6 +42,7 @@ class BackupAndRestoreViewController: BaseViewController {
     func navigationUI() {
         //title = "설정2" // 네비게이션, 탭바 타이틀이 같은 값으로 설정된다.
         navigationItem.title = "설정"
+        navigationController?.navigationBar.prefersLargeTitles = true
         //navigationItem.leftBarButtonItem = UIBarButtonItem(title: "닫기", style: .plain, target: self, action: #selector(cancelButtonClicked)) // 탭바 추가로 비활성화
     }
     

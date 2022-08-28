@@ -19,16 +19,20 @@ class TabBarViewController: UITabBarController {
         firstNav.tabBarItem.title = "일기"
         firstNav.tabBarItem.image = UIImage(systemName: "calendar")
         
+        let secondVC = SearchViewController()
+        let secondNav = UINavigationController(rootViewController: secondVC)
+        secondNav.tabBarItem.title = "검색"
+        secondNav.tabBarItem.image = UIImage(systemName: "magnifyingglass")
+        
         let thirdVC = BackupAndRestoreViewController()
         let thirdNav = UINavigationController(rootViewController: thirdVC)
         thirdNav.tabBarItem.title = "설정"
         thirdNav.tabBarItem.image = UIImage(systemName: "gear")
         
-        self.setViewControllers([firstNav, thirdNav], animated: true)
+        self.setViewControllers([firstNav, secondNav, thirdNav], animated: true)
     }
     
     func setupTabBarAppearence() {
         let appearence = UITabBarAppearance()
-        appearence.backgroundColor = .red
     }
 }

@@ -23,8 +23,8 @@ class HomeViewController: BaseViewController {
     }
     
     override func viewDidLoad() {
-        print(#function)
         super.viewDidLoad()
+        print(#function)
         navigationBarUI()
         todayDiary()
         print("Realms 파일 위치:", repository.fetchRealmPath())

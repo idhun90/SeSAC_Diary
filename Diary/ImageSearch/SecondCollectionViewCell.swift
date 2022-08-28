@@ -2,7 +2,7 @@ import UIKit
 
 import SnapKit
 
-class SecondCollectionViewCell: BaseViewCell {
+class SecondCollectionViewCell: BaseCollectionViewCell {
     
     let searchedImageView: UIImageView = {
         let view = UIImageView()

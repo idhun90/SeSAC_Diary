@@ -31,10 +31,24 @@ class UserDiaryRealmRepository: UserDiaryRealmRepositoryType {
     }
     
     func fetchRealmTodayDate() -> Results<USerDiary> {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        dateFormatter.locale = Locale(identifier: "ko_KR")
+        
+        let date = Date()
+        print("현재 시간: \(date)")
+        let stringDate = dateFormatter.string(from: date)
+        print("stringDate: \(stringDate)")
+        let newDate = dateFormatter.date(from: stringDate)! // 왜 다시 한국시간이 아닌걸까
+        print("newDate: \(newDate)")
+        
         let calendar = Calendar.current
-        let yesterday = calendar.date(byAdding: .day, value: -1, to: Date())!
-        let tomorrow = calendar.date(byAdding: .day, value: 1, to: Date())!
+        let yesterday = calendar.date(byAdding: .day, value: -1, to: newDate)!
+        print("어제 시간: \(yesterday)")
+        let tomorrow = calendar.date(byAdding: .day, value: 1, to: newDate)!
+        print("내일 시간: \(tomorrow)")
         let created = localRealm.objects(USerDiary.self).filter("createdDate >= %@ AND createdDate < %@", yesterday, tomorrow).sorted(byKeyPath: "createdDate", ascending: false)
+        print(created)
         
         return created
     }
