@@ -32,22 +32,29 @@ class UserDiaryRealmRepository: UserDiaryRealmRepositoryType {
     
     func fetchRealmTodayDate() -> Results<USerDiary> {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd"
+        dateFormatter.dateFormat = "yyyy-MM-dd-hh-mm-ss"
         dateFormatter.locale = Locale(identifier: "ko_KR")
         
         let date = Date()
         print("현재 시간: \(date)")
         let stringDate = dateFormatter.string(from: date)
         print("stringDate: \(stringDate)")
-        let newDate = dateFormatter.date(from: stringDate)! // 왜 다시 한국시간이 아닌걸까, date 타입은 포멧 적용이 안 되는 듯
+        let newDate = dateFormatter.date(from: stringDate)!
         print("newDate: \(newDate)")
         
         let calendar = Calendar.current
-        let yesterday = calendar.date(byAdding: .day, value: -1, to: newDate)!
-        print("어제 시간: \(dateFormatter.string(from: yesterday))")
-        let tomorrow = calendar.date(byAdding: .day, value: 1, to: newDate)!
-        print("내일 시간: \(tomorrow)")
-        let created = localRealm.objects(USerDiary.self).filter("createdDate BETWEEN {%@, %@}", yesterday, tomorrow).sorted(byKeyPath: "createdDate", ascending: false)
+        let yesterday = calendar.startOfDay(for: Date()) // 해당 일의 시작 시간 12:00 am
+        print("어제 날짜: \(dateFormatter.string(from: yesterday))")
+        let tomorrow = calendar.startOfDay(for: calendar.date(byAdding: .day, value: 1, to: Date())!)
+        print("내일 날짜: \(dateFormatter.string(from: tomorrow))")
+        
+        //let yesterday = calendar.date(bySetting: <#T##Calendar.Component#>, value: <#T##Int#>, of: <#T##Date#>) // 특정 일,시간, 분, 초 값 변경
+        
+//        let component = calendar.dateComponents([.year, .month, .day], from: Date())
+//        let tomorrowDate = calendar.date(from: component)!
+//        let tomorrow = calendar.date(byAdding: .day, value: 1, to: tomorrowDate)!
+        
+        let created = localRealm.objects(USerDiary.self).filter("createdDate > %@ AND createdDate < %@", yesterday, tomorrow).sorted(byKeyPath: "createdDate", ascending: false)
         
         print(created)
         
